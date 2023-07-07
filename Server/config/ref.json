@@ -1,0 +1,19 @@
+{
+  "defaultEnv": { "ENV": "NODE_ENV" },
+  "prod": {
+    "driver": "pg",
+    "host": { "ENV": "POSTGRESS_HOST" },
+    "port": { "ENV": "POSTGRESS_PORT" },
+    "database": { "ENV": "POSTGRESS_DATABASE" },
+    "user": { "ENV": "POSTGRESS_USER" },
+    "password": { "ENV": "POSTGRESS_PASSWORD" }
+  },
+  "test": {
+    "driver": "pg",
+    "host": { "ENV": "POSTGRESS_HOST" },
+    "port": { "ENV": "POSTGRESS_PORT" },
+    "database": { "ENV": "POSTGRESS_DATABASE" },
+    "user": { "ENV": "POSTGRESS_USER" },
+    "password": { "ENV": "POSTGRESS_PASSWORD" }
+  }
+}
