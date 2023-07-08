@@ -2,7 +2,8 @@ import bcrypt from "bcrypt";
 
 export class Encryptor {
   public static hashPassword = async (password: string) => {
-    let salt: string = await bcrypt.genSalt(5);
+    let salt_round: number = Number(process.env.SALT_ROUND);
+    let salt: string = await bcrypt.genSalt(salt_round);
     let hashedPassword: string = await bcrypt.hash(password, salt);
     return hashedPassword;
   };

@@ -14,7 +14,6 @@ const clientSignUp = async (
     Phone: req.body.phone,
     Address: req.body.address,
   };
-
   let newClient: Client = new Client(newClientData);
   let result = await newClient.signUp();
   console.log(result);

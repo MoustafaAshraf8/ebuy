@@ -3,7 +3,6 @@ import { pool } from "../../../../config/config.js";
 import { Client_Interface } from "../Interface/Client_Interface.js";
 import { Client_signIn_Interface } from "../Interface/Client_signIn_Interface.js";
 import { Encryptor } from "../../utilities/Encryptor.js";
-import { QueryResult } from "pg";
 export class Client {
   private Name: string;
   private Email: string;
@@ -19,14 +18,20 @@ export class Client {
     this.Address = client.Address;
   }
 
-  public signUp = async (): Promise<object[]> => {
+  public signUp = async (): Promise<object | boolean> => {
     let hashedPassword = await Encryptor.hashPassword(this.Password);
     let query = `insert into client (name, email, password, phone, address) values ('${this.Name}','${this.Email}','${hashedPassword}','${this.Phone}','${this.Address}') returning *;`;
-    let result = await pool.query(query);
-    return result.rows;
+    try {
+      let result = await pool.query(query);
+      return result.rows[0];
+    } catch {
+      return false;
+    }
   };
 
-  public static signIn = async (oldClient: Client_signIn_Interface) => {
+  public static signIn = async (
+    oldClient: Client_signIn_Interface
+  ): Promise<object | boolean> => {
     let query = `select * from client where email='${oldClient.Email}';`;
     let arrclient = await pool.query(query);
     try {
@@ -41,7 +46,7 @@ export class Client {
         return { msg: "wrong email or password" };
       }
     } catch {
-      return { msg: "user not found" };
+      return false;
     }
   };
 }

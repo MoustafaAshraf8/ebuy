@@ -29,9 +29,18 @@ export class Product {
     return result.rows;
   };
 
-  public addProduct = async () => {
-    let query: string = `insert into product (Name, Category, Rating, Price, Quantity, Description) values ('${this.Name}', '${this.Category}', '${this.Rating}', '${this.Price}', '${this.Quantity}', '${this.Description}') returning *;`;
+  public addProduct = async (seller_id: number): Promise<object | boolean> => {
+    let query: string = `insert into product (seller_id, name, price, quantity ,description) values ('${seller_id}','${this.Name}', '${this.Price}', '${this.Quantity}', '${this.Description}') returning *;`;
     let result = await pool.query(query);
-    return result.rows;
+    return result.rows[0];
+  };
+
+  public static removeProduct = async (
+    seller_id: number,
+    product_id: number
+  ): Promise<object | boolean> => {
+    let query: string = `delete from product where id='${product_id}' and seller_id='${seller_id}' returning *;`;
+    let result = await pool.query(query);
+    return result.rows[0];
   };
 }

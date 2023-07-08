@@ -37,7 +37,7 @@ const addProduct = async (
   };
   console.log(product_data);
   let newProduct = new Product(product_data);
-  let product = await newProduct.addProduct();
+  let product = await newProduct.addProduct(1);
   res.json(product);
 };
 
