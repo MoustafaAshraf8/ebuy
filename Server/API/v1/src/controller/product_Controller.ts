@@ -1,7 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import { Product } from "../model/Product.js";
-import { Product_interface } from "../data_type/Product_interface.js";
-import { Query } from "../data_type/data_type.js";
+import { Product_Interface } from "../Interface/Product_Interface.js";
 const getAllProduct = async (
   req: Request,
   res: Response,
@@ -28,7 +27,7 @@ const addProduct = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  let product_data: Product_interface = {
+  let product_data: Product_Interface = {
     Name: req.body.name,
     Category: req.body.category,
     Rating: req.body.rating,

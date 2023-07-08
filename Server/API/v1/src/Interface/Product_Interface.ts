@@ -1,4 +1,4 @@
-interface Product_interface {
+interface Product_Interface {
   Name: string;
   Category: string;
   Rating: number;
@@ -7,4 +7,4 @@ interface Product_interface {
   Description: string;
 }
 
-export { Product_interface };
+export { Product_Interface };

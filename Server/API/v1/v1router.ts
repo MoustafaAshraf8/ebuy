@@ -1,6 +1,6 @@
 import express, { Application } from "express";
-import { clientRouter } from "./src/routes/clientRouter.js";
-import { productRouter } from "./src/routes/productRouter.js";
+import { clientRouter } from "./src/routes/client_Router.js";
+import { productRouter } from "./src/routes/product_Router.js";
 //express.Router()
 let v1router: express.Router = express.Router();
 

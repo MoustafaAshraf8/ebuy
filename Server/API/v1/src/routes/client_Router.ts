@@ -1,17 +1,9 @@
 import express from "express";
-
+import { clientSignUp, clientSignIn } from "../controller/client_Controller.js";
 let clientRouter: express.Router = express.Router();
 
-clientRouter
-  .route("/")
-  .get((req, res, next): void => {
-    let x: string | undefined = process.env.ACTIVE_VERSION;
-    console.log(process.env.ACTIVE_VERSION);
-    res.json({ version: x, msg: "clientRouter. get /" });
-  })
-  .post((req, res, next): void => {
-    res.json({ msg: "clientRouter. post /" });
-  });
+clientRouter.route("/signUp").post(clientSignUp);
+clientRouter.route("/signIn").post(clientSignIn);
 
 clientRouter
   .route("/:id")
