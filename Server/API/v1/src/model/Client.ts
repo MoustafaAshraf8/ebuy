@@ -18,11 +18,31 @@ export class Client {
     this.Address = client.Address;
   }
 
+  private createPayment = async (userId: number): Promise<object> => {
+    let query: string = `insert into client_payment (cid) values (${userId}) returning *;`;
+    let result = await pool.query(query);
+    return result.rows[0];
+  };
+  private createCart = async (userId: number): Promise<object> => {
+    let query: string = `insert into client_cart (client_id) values (${userId}) returning *;`;
+    let result = await pool.query(query);
+    return result.rows[0];
+  };
+
+  private createEssentials = async (userId: number): Promise<object | void> => {
+    let payment = await this.createPayment(userId);
+    let cart = await this.createCart(userId);
+  };
+
   public signUp = async (): Promise<object | boolean> => {
     let hashedPassword = await Encryptor.hashPassword(this.Password);
     let query = `insert into client (name, email, password, phone, address) values ('${this.Name}','${this.Email}','${hashedPassword}','${this.Phone}','${this.Address}') returning *;`;
     try {
       let result = await pool.query(query);
+      let userId = result.rows[0].id;
+      console.log(`userId: ${userId}`);
+      //let payment = await this.createPayment(userId);
+      this.createEssentials(userId);
       return result.rows[0];
     } catch {
       return false;

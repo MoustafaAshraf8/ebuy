@@ -3,7 +3,6 @@ import { Product_Interface } from "../Interface/Product_Interface.js";
 export class Product {
   private Name: string;
   private Category: string;
-  private Rating: number;
   private Price: number;
   private Quantity: number;
   private Description: string;
@@ -11,7 +10,6 @@ export class Product {
   constructor(newProduct: Product_Interface) {
     this.Name = newProduct.Name;
     this.Category = newProduct.Category;
-    this.Rating = newProduct.Rating;
     this.Price = newProduct.Price;
     this.Quantity = newProduct.Quantity;
     this.Description = newProduct.Description;
@@ -30,7 +28,7 @@ export class Product {
   };
 
   public addProduct = async (seller_id: number): Promise<object | boolean> => {
-    let query: string = `insert into product (seller_id, name, price, quantity ,description) values ('${seller_id}','${this.Name}', '${this.Price}', '${this.Quantity}', '${this.Description}') returning *;`;
+    let query: string = `insert into product (seller_id, name, price, quantity, discount, category ,description) values ('${seller_id}','${this.Name}', '${this.Price}', '${this.Quantity}', 0.0, '${this.Category}' ,'${this.Description}') returning *;`;
     let result = await pool.query(query);
     return result.rows[0];
   };

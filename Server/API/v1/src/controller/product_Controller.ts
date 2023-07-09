@@ -30,7 +30,6 @@ const addProduct = async (
   let product_data: Product_Interface = {
     Name: req.body.name,
     Category: req.body.category,
-    Rating: req.body.rating,
     Price: req.body.price,
     Quantity: req.body.quantity,
     Description: req.body.description,
