@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { pool } from "../../../../config/config.js";
 import { Client_Interface } from "../Interface/Client_Interface.js";
 import { Client_signIn_Interface } from "../Interface/Client_signIn_Interface.js";
@@ -29,9 +30,19 @@ export class Client {
     return result.rows[0];
   };
 
+  private createJWT = async (userId: number): Promise<object> => {
+    let accessToken = jwt.sign(
+      String(userId),
+      String(process.env.ACCESS_TOKEN_SECRET)
+    );
+    return { accessToken: accessToken };
+  };
+
   private createEssentials = async (userId: number): Promise<object | void> => {
     let payment = await this.createPayment(userId);
     let cart = await this.createCart(userId);
+    let jwtObj = await this.createJWT(userId);
+    return jwtObj;
   };
 
   public signUp = async (): Promise<object | boolean> => {
@@ -42,8 +53,8 @@ export class Client {
       let userId = result.rows[0].id;
       console.log(`userId: ${userId}`);
       //let payment = await this.createPayment(userId);
-      this.createEssentials(userId);
-      return result.rows[0];
+      let jwtObject: object = this.createEssentials(userId);
+      return jwtObject;
     } catch {
       return false;
     }
@@ -60,8 +71,13 @@ export class Client {
         await arrclient.rows[0].password
       );
       if (success) {
-        delete arrclient.rows[0]["password"];
-        return arrclient.rows[0];
+        let accessToken = jwt.sign(
+          String(arrclient.rows[0].id),
+          String(process.env.ACCESS_TOKEN_SECRET)
+        );
+        return { accessToken: accessToken };
+        //   delete arrclient.rows[0]["password"];
+        //   return arrclient.rows[0];
       } else {
         return { msg: "wrong email or password" };
       }
