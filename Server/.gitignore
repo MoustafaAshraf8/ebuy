@@ -1,0 +1,5 @@
+.env
+db_design.jpg
+node_modules
+request
+jwt.ts
