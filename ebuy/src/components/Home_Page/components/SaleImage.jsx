@@ -9,7 +9,7 @@ const SaleImage = () => {
   };
   return (
     <div className="container-fluid d-flex justify-content-center">
-      <img src="./Image/sale_image.png" alt="" style={imgStyle} />;
+      <img src="./Image/sale_image.png" alt="" style={imgStyle} />
     </div>
   );
 };

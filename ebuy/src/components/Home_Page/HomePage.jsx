@@ -9,7 +9,7 @@ const HomePage = () => {
   };
   return (
     <div
-      className="container-fluid d-flex flex-column align-items-start p-0 m-0"
+      className="container-fluid d-flex flex-column align-items-start pt-4 m-0"
       style={homePageStyle}
     >
       <SaleImage />
