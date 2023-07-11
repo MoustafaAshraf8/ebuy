@@ -5,7 +5,7 @@ import Button_template from "../reuseable_components/Button_template";
 import LockIcon from "@mui/icons-material/Lock";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 
-const LoginPage = () => {
+const SignupPage = () => {
   let [Email, setEmail] = useState("");
   let [Password, setPassword] = useState({
     value: "",
@@ -111,4 +111,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;
