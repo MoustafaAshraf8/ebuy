@@ -52,7 +52,7 @@ const LoginPage = () => {
       style={{
         height: "100%",
         position: "fixed",
-        backgroundImage: "url('./Images/storm.jpg')",
+        backgroundColor: "#adaaaa",
         backgroundSize: "cover",
       }}
     >
@@ -60,8 +60,13 @@ const LoginPage = () => {
         className="card d-flex-column justify-content-center p-3 col-12 col-sm-10 col-md-6"
         style={{ border: "solid 3px green", borderRadius: "10px" }}
       >
-        <div className="ms-2 mb-2" style={{ textAlign: "start" }}>
-          Sign in
+        <div className="ms-2 mb-2" style={{ textAlign: "center" }}>
+          <h1>Sign in</h1>
+          {/* <img
+            src="./Image/person_icon.png"
+            alt=""
+            style={{ height: "15vh" }}
+          /> */}
         </div>
         <form onSubmit={submitHandle}>
           <Input_template
@@ -105,7 +110,7 @@ const LoginPage = () => {
         {/* or */}
         <OR />
         {/* signup btn */}
-        <Button_template text="sign-up" href="/sign-up" />
+        <Button_template text="sign-up" href="/signup" />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Button_template = ({ text, href }) => {
+const Button_template = ({ text, href, Submit }) => {
   let element =
     href == undefined ? (
       <button className="btn btn-primary">{text}</button>
