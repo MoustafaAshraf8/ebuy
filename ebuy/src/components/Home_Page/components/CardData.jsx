@@ -2,13 +2,16 @@ import React from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 const CardData = ({ product }) => {
   let imgStyle = {
-    width: "20wh",
-    height: "40vh",
+    width: "100%",
+    height: "100%",
   };
   let productPath = `/product/${product.id}`;
   return (
-    <div className="card border-0 col-12 col-sm-6 col-md-3 p-3 m-0">
-      <a href={productPath}>
+    <div
+      className="card border-0 col-12 col-sm-6 col-md-3 p-3 m-0"
+      style={{ height: "50vh" }}
+    >
+      <a href={productPath} style={{ height: "70%" }}>
         <img
           src="./Image/product_placeholder.png"
           //src={Product.imgURL}
@@ -17,10 +20,13 @@ const CardData = ({ product }) => {
           style={imgStyle}
         />
       </a>
-      <div className="card-body">
+      <div className="card-body" style={{ height: "15%" }}>
         <p className="card-text">{product.name}</p>
       </div>
-      <div className="d-block d-sm-flex justify-content-between p-0">
+      <div
+        className="d-block d-sm-flex justify-content-between p-2 align-items-center"
+        style={{ height: "15%" }}
+      >
         <div>
           <div className="align-items-start">Price: {product.price}$</div>
         </div>
