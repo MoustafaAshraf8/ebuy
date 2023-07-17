@@ -13,7 +13,7 @@ const HomePage = () => {
       style={homePageStyle}
     >
       <SaleImage />
-      {/* <Card /> */}
+      <Card />
     </div>
   );
 };

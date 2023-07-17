@@ -1,47 +1,28 @@
 import React from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-const CardData = ({ Product }) => {
-  //console.log("a7a");
-  //let productPath = "product/" + Product.id;
-
-  //   category
-  // :
-  // "Fruit"
-  // description
-  // :
-  // "Fresh"
-  // name
-  // :
-  // "Apple"
-  // price
-  // :
-  // 10
-  // productid
-  // :
-  // 1
-  // quantity
-  // :
-  // 100
-  // rating
-  // :
-  // 4.5
-  let productPath = `/product/${Product.productid}`;
+const CardData = ({ product }) => {
+  let imgStyle = {
+    width: "20wh",
+    height: "40vh",
+  };
+  let productPath = `/product/${product.id}`;
   return (
     <div className="card border-0 col-12 col-sm-6 col-md-3 p-3 m-0">
       <a href={productPath}>
         <img
-          src="https://placebeard.it/640x360"
+          src="./Image/product_placeholder.png"
           //src={Product.imgURL}
           className="card-img-top"
           alt="..."
+          style={imgStyle}
         />
       </a>
       <div className="card-body">
-        <p className="card-text">{Product.name}</p>
+        <p className="card-text">{product.name}</p>
       </div>
       <div className="d-block d-sm-flex justify-content-between p-0">
         <div>
-          <div className="align-items-start">Price: {Product.price}$</div>
+          <div className="align-items-start">Price: {product.price}$</div>
         </div>
         <div>
           <span
