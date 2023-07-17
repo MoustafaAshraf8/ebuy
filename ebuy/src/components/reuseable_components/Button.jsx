@@ -1,6 +1,7 @@
 import React from "react";
 
-const Button_template = (props) => {
+const Button_2 = (props) => {
+  console.log(props);
   let element =
     props.href == undefined ? (
       <button
@@ -16,7 +17,7 @@ const Button_template = (props) => {
       </a>
     );
 
-  return <div className="d-grid gap-2">{element}</div>;
+  return <div>{element}</div>;
 };
 
-export default Button_template;
+export default Button_2;

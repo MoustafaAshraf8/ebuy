@@ -4,7 +4,6 @@ import SearchIcon from "@mui/icons-material/Search";
 
 const SearchBar = (props) => {
   const [SearchValue, setSearchValue] = useState("");
-  console.log(props.fontSize);
 
   const SearchValueChanged = (e) => {
     console.log(e.target.value);

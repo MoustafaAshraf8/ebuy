@@ -11,7 +11,7 @@ let Products = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit sit quos ad doloribus dolores nisi",
     price: "500",
     rating: "4.5",
-    imgURL: "https://m.media-amazon.com/images/I/716sPBem8TL._AC_SL1500_.jpg",
+    imgURL: "./Image/product_placeholder.png",
   },
   {
     id: 1,
@@ -21,7 +21,7 @@ let Products = [
     price: "100",
     rating: "4.5",
 
-    imgURL: "https://m.media-amazon.com/images/I/610pghkO81L._AC_SL1500_.jpg",
+    imgURL: "./Image/product_placeholder.png",
   },
   {
     id: 2,
@@ -31,7 +31,7 @@ let Products = [
     price: "100",
     rating: "4.5",
 
-    imgURL: "https://m.media-amazon.com/images/I/716sPBem8TL._AC_SL1500_.jpg",
+    imgURL: "./Image/product_placeholder.png",
   },
   {
     id: 3,
@@ -41,7 +41,7 @@ let Products = [
     price: "100",
     rating: "4.5",
 
-    imgURL: "https://m.media-amazon.com/images/I/610pghkO81L._AC_SL1500_.jpg",
+    imgURL: "./Image/product_placeholder.png",
   },
   {
     id: 4,
@@ -51,7 +51,7 @@ let Products = [
     price: "100",
     rating: "4.5",
 
-    imgURL: "https://m.media-amazon.com/images/I/716sPBem8TL._AC_SL1500_.jpg",
+    imgURL: "./Image/product_placeholder.png",
   },
   {
     id: 5,
@@ -61,7 +61,7 @@ let Products = [
     price: "100",
     rating: "4.5",
 
-    imgURL: "https://m.media-amazon.com/images/I/716sPBem8TL._AC_SL1500_.jpg",
+    imgURL: "./Image/product_placeholder.png",
   },
   {
     id: 6,
@@ -71,7 +71,7 @@ let Products = [
     price: "100",
     rating: "4.5",
 
-    imgURL: "https://m.media-amazon.com/images/I/716sPBem8TL._AC_SL1500_.jpg",
+    imgURL: "./Image/product_placeholder.png",
   },
   {
     id: 7,
@@ -81,7 +81,7 @@ let Products = [
     price: "100",
     rating: "4.5",
 
-    imgURL: "https://m.media-amazon.com/images/I/716sPBem8TL._AC_SL1500_.jpg",
+    imgURL: "./Image/product_placeholder.png",
   },
   {
     id: 0,
@@ -91,7 +91,7 @@ let Products = [
     price: "500000",
     rating: "4.5",
 
-    imgURL: "https://m.media-amazon.com/images/I/716sPBem8TL._AC_SL1500_.jpg",
+    imgURL: "./Image/product_placeholder.png",
   },
   {
     id: 0,
@@ -101,7 +101,7 @@ let Products = [
     price: "100",
     rating: "4.5",
 
-    imgURL: "https://m.media-amazon.com/images/I/716sPBem8TL._AC_SL1500_.jpg",
+    imgURL: "./Image/product_placeholder.png",
   },
   {
     id: 2,
@@ -111,7 +111,7 @@ let Products = [
     price: "100",
     rating: "4.5",
 
-    imgURL: "https://m.media-amazon.com/images/I/716sPBem8TL._AC_SL1500_.jpg",
+    imgURL: "./Image/product_placeholder.png",
   },
   {
     id: 3,
@@ -121,7 +121,7 @@ let Products = [
     price: "100",
     rating: "4.5",
 
-    imgURL: "https://m.media-amazon.com/images/I/716sPBem8TL._AC_SL1500_.jpg",
+    imgURL: "./Image/product_placeholder.png",
   },
   {
     id: 4,
@@ -131,7 +131,7 @@ let Products = [
     price: "100",
     rating: "4.5",
 
-    imgURL: "https://m.media-amazon.com/images/I/716sPBem8TL._AC_SL1500_.jpg",
+    imgURL: "./Image/product_placeholder.png",
   },
   {
     id: 5,
@@ -141,7 +141,7 @@ let Products = [
     price: "100",
     rating: "4.5",
 
-    imgURL: "https://m.media-amazon.com/images/I/716sPBem8TL._AC_SL1500_.jpg",
+    imgURL: "./Image/product_placeholder.png",
   },
   {
     id: 6,
@@ -151,7 +151,7 @@ let Products = [
     price: "100",
     rating: "4.5",
 
-    imgURL: "https://m.media-amazon.com/images/I/716sPBem8TL._AC_SL1500_.jpg",
+    imgURL: "./Image/product_placeholder.png",
   },
   {
     id: 7,
@@ -161,7 +161,7 @@ let Products = [
     price: "100",
     rating: "4.5",
 
-    imgURL: "https://m.media-amazon.com/images/I/716sPBem8TL._AC_SL1500_.jpg",
+    imgURL: "./Image/product_placeholder.png",
   },
 ];
 

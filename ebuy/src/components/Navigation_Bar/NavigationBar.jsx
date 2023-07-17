@@ -27,12 +27,16 @@ const NavigationBar = () => {
       style={{
         border: "solid 0px green",
         backgroundColor: "#474646",
-        minHeight: "60px",
+        maxHeight: "10vh",
       }}
     >
       <div
-        className="container-fluid d-flex pe-0"
-        style={{ border: "solid 0px red", height: "100%" }}
+        className="container-fluid d-flex"
+        style={{
+          border: "solid 0px red",
+          height: "100%",
+          backgroundColor: "#474646",
+        }}
       >
         {/* website logo */}
         <BrandLogo />
@@ -74,7 +78,7 @@ const NavigationBar = () => {
             </li>
             <li className="nav-item">
               <a className="nav-link" href="/login">
-                <span className="d-none d-sm-inline">
+                <span className="d-inline">
                   <LoginIcon style={iconFontStyle.largeIcon} />
                 </span>
               </a>
