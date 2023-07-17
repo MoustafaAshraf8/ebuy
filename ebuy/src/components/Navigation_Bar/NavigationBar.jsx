@@ -9,6 +9,7 @@ import ThunderstormIcon from "@mui/icons-material/Thunderstorm";
 import BrandLogo from "./components/BrandLogo";
 import Categories from "./components/Categories";
 import SearchBar from "./components/SearchBar";
+import { height } from "@mui/system";
 
 const goToCart = () => {
   console.log("hello cart");
@@ -17,17 +18,17 @@ const goToCart = () => {
 const NavigationBar = () => {
   return (
     <nav
-      className="container-fluid nav justify-content-left navbar navbar-expand-md navbarscroll p-4 m-0"
+      className="container-fluid nav justify-content-left navbar navbar-expand-md navbarscroll p-3 m-0"
       data-bs-theme="dark"
       style={{
         border: "solid 3px green",
         backgroundColor: "#474646",
-        height: "60px",
+        minHeight: "60px",
       }}
     >
       <div
         className="container-fluid d-flex pe-0"
-        style={{ border: "solid 3px red" }}
+        style={{ border: "solid 3px red", height: "100%" }}
       >
         {/* website logo */}
         <BrandLogo />
