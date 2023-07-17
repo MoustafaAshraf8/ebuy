@@ -15,20 +15,24 @@ const goToCart = () => {
   console.log("hello cart");
 };
 
+const iconFontStyle = {
+  largeIcon: { fontSize: 30 },
+};
+
 const NavigationBar = () => {
   return (
     <nav
       className="container-fluid nav justify-content-left navbar navbar-expand-md navbarscroll p-3 m-0"
       data-bs-theme="dark"
       style={{
-        border: "solid 3px green",
+        border: "solid 0px green",
         backgroundColor: "#474646",
         minHeight: "60px",
       }}
     >
       <div
         className="container-fluid d-flex pe-0"
-        style={{ border: "solid 3px red", height: "100%" }}
+        style={{ border: "solid 0px red", height: "100%" }}
       >
         {/* website logo */}
         <BrandLogo />
@@ -48,30 +52,30 @@ const NavigationBar = () => {
         <div
           className="collapse navbar-collapse justify-content-left"
           id="navbarSupportedContent"
-          style={{ border: "solid 3px yellow" }}
+          style={{ border: "solid 0px yellow" }}
         >
           <ul
             className="container-fluid navbar-nav p-0 m-0 d-flex align-items-center"
-            style={{ border: "solid 3px black" }}
+            style={{ border: "solid 0px black" }}
           >
             <li className="nav-item">
               <a className="nav-link" href="/">
-                <HomeSharpIcon />
+                <HomeSharpIcon style={iconFontStyle.largeIcon} />
               </a>
             </li>
 
             <Categories />
-            <SearchBar />
+            <SearchBar {...iconFontStyle.largeIcon} />
 
             <li className="nav-item">
               <a className="nav-link" href="/shoppingcart">
-                <ShoppingCartIcon />
+                <ShoppingCartIcon style={iconFontStyle.largeIcon} />
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="/login">
                 <span className="d-none d-sm-inline">
-                  <LoginIcon />
+                  <LoginIcon style={iconFontStyle.largeIcon} />
                 </span>
               </a>
             </li>

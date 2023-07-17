@@ -2,8 +2,9 @@ import React from "react";
 import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 
-const SearchBar = () => {
+const SearchBar = (props) => {
   const [SearchValue, setSearchValue] = useState("");
+  console.log(props.fontSize);
 
   const SearchValueChanged = (e) => {
     console.log(e.target.value);
@@ -31,7 +32,7 @@ const SearchBar = () => {
           type="button"
           className="btn btn-outline-* d-none d-sm-block col-sm-1"
         >
-          <SearchIcon />
+          <SearchIcon style={{ fontSize: Number(props.fontSize) }} />
         </button>
       </div>
     </li>
