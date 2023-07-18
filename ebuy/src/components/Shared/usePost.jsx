@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-function useFetch(url) {
+
+function usePost(url, postBody, submitValue) {
+  console.log("usePost", `submitValue: ${submitValue}`);
   let [data, setData] = useState(null);
   let [loading, setLoading] = useState(false);
   let [error, setError] = useState(null);
 
-  useEffect(() => {
+  function execute() {
+    console.log("execute");
     setLoading(true);
     axios
-      .get(url)
+      .post(url, postBody)
       .then((response) => {
         setData(response.data);
+        console.log(data);
       })
       .catch((err) => {
         setError(err);
@@ -18,9 +22,14 @@ function useFetch(url) {
       .finally(() => {
         setLoading(false);
       });
-  }, [url]);
-  console.log(data, loading, error);
+  }
+
+  useEffect(() => {
+    console.log("useEffect-0");
+    if (submitValue) execute();
+  }, [submitValue]);
+
   return { data, loading, error };
 }
 
-export default useFetch;
+export default usePost;

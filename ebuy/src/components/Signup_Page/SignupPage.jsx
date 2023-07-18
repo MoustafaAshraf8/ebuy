@@ -6,13 +6,16 @@ import Button_template from "../reuseable_components/Button_template";
 import LockIcon from "@mui/icons-material/Lock";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 
+import usePost from "../Shared/usePost";
+
 const SignupPage = () => {
   let [Name, setName] = useState("");
   let [Phone, setPhone] = useState("");
   let [Address, setAddress] = useState("");
   let [Email, setEmail] = useState("");
   let [Password, setPassword] = useState("");
-  let [Submit, setSubmit] = useState(true);
+  let [Submit, setSubmit] = useState(false);
+  let submitValue = false;
 
   let regexEmail = /^\w+@[a-zA-Z_]+\.[a-zA-Z]{2,6}$/;
   let regexPassword = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
@@ -36,29 +39,45 @@ const SignupPage = () => {
   let emailChanged = (e) => {
     setEmail(e.target.value);
     console.log(Email);
-    if (isFormValid()) setSubmit(false);
-    else setSubmit(true);
+    //if (!Email.match(regexEmail)) setSubmit(false);
   };
   let passwordChanged = (e) => {
     setPassword(e.target.value);
     console.log(Password);
-    if (isFormValid()) setSubmit(false);
-    else setSubmit(true);
+    //if (!Password.match(regexPassword)) setSubmit(false);
   };
 
   let submitHandle = (e) => {
+    e.preventDefault();
     if (!isFormValid()) {
-      e.preventDefault();
-      setSubmit(true);
       console.log("not valid");
+      submitValue = false;
+      setSubmit(submitValue);
+    } else {
+      submitValue = true;
+      setSubmit(submitValue);
+
+      console.log(`email: ${Email} ==> password: ${Password}`, submitValue);
     }
-    console.log(`email: ${Email} ==> password: ${Password}`);
-    setSubmit(!Submit);
   };
 
-  //useLogin(Email, Password.value, Submit);
-  //setSubmit(false);
-  //let validated = Email && Password.value;
+  if (!isFormValid() && submitValue == true) {
+    submitValue = false;
+    setSubmit(submitValue);
+  }
+  console.log("before usePost: ", submitValue);
+
+  usePost(
+    "http://localhost:8080/client/signUp",
+    {
+      name: Name,
+      email: Email,
+      password: "testpassword",
+      phone: Phone,
+      address: Address,
+    },
+    submitValue
+  );
 
   return (
     <div
@@ -77,7 +96,7 @@ const SignupPage = () => {
           borderRadius: "10px",
         }}
       >
-        <div className="ms-2 mb-2" style={{ textAlign: "start" }}>
+        <div className="ms-2 mb-2" style={{ textAlign: "center" }}>
           <h1>Sign up</h1>
         </div>
         <form onSubmit={submitHandle}>

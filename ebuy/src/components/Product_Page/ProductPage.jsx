@@ -3,7 +3,6 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import ProductImage from "./components/ProductImage";
 import ProductData from "./components/ProductData";
 import Button_template from "../reuseable_components/Button_template";
-
 import useFetch from "../Shared/useFetch";
 
 const ProductPage = () => {
@@ -16,7 +15,7 @@ const ProductPage = () => {
   } = useFetch(`http://localhost:8080/product/${product_id}`);
 
   let productPageStyle = {
-    minHeight: "calc(100vh - 10vh)", //10vh : min-height of navbar
+    minHeight: "calc(100vh - 10vh)", //10vh : height of navbar
     border: "0px solid red",
   };
   let productPageContentStyle = {
