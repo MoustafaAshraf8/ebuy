@@ -19,7 +19,8 @@ const CardData = ({ product }) => {
       <Product_image_template
         href={productPath}
         anchorStyle={{ height: "60%", width: "100%" }}
-        src={product.imgURL}
+        //src={product.imgURL}
+        src="./Image/product_placeholder.png"
         imgStyle={imgStyle}
       />
       <div className="card-body" style={{ height: "15%" }}>

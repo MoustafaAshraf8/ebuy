@@ -22,9 +22,9 @@ export class Product {
   };
 
   public static getProductById = async (id: string) => {
-    let query: string = `select * from product where productid=${id};`;
+    let query: string = `select * from product where id=${id};`;
     let result = await pool.query(query);
-    return result.rows;
+    return result.rows[0];
   };
 
   public addProduct = async (seller_id: number): Promise<object | boolean> => {

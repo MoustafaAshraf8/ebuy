@@ -6,6 +6,7 @@ const ProductImage = ({ src }) => {
     width: "100%",
     height: "100%",
   };
+
   return (
     <Product_image_template
       href="#"
@@ -15,15 +16,5 @@ const ProductImage = ({ src }) => {
     />
   );
 };
-
-// { href, anchorStyle, src, imgStyle }
-{
-  /* <Product_image_template
-  href={productPath}
-  anchorStyle={{ height: "70%", width: "100%" }}
-  src={product.imgURL}
-  imgStyle={imgStyle}
-/>; */
-}
 
 export default ProductImage;

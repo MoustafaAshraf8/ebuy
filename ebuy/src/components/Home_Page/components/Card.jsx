@@ -165,7 +165,6 @@ import useFetch from "../../Shared/useFetch";
 // ];
 
 const Card = () => {
-  let test = true;
   let {
     data: Products,
     loading,

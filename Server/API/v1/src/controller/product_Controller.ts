@@ -19,6 +19,7 @@ const getProductById = async (
 ): Promise<void> => {
   let id: string = req.params.id;
   let product = await Product.getProductById((id = id));
+  console.log(product);
   res.json(product);
 };
 
