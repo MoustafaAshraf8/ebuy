@@ -1,7 +1,6 @@
 import express from "express";
 import { clientSignUp, clientSignIn } from "../controller/client_Controller.js";
 let clientRouter: express.Router = express.Router();
-
 clientRouter.route("/signUp").post(clientSignUp);
 clientRouter.route("/signIn").post(clientSignIn);
 

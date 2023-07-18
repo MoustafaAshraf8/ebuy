@@ -4,8 +4,8 @@ import SaleImage from "./components/SaleImage";
 import Card from "./components/Card";
 const HomePage = () => {
   let homePageStyle = {
-    border: "3px solid green",
-    minHeight: "calc(100vh - 60px)", //60px : height of navbar
+    border: "0px solid green",
+    minHeight: "calc(100vh - 10vh)", //60px : height of navbar
   };
   return (
     <div
