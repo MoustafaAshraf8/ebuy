@@ -1,0 +1,9 @@
+/* .home-pagepcontainer{
+   border: "3px solid green",
+   height: "calc(100vh - 60px)",
+ } */
+
+.home {
+  border: 3px solid green;
+  height: calc(100vh - 60px);
+}
