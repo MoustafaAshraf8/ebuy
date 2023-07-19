@@ -7,12 +7,12 @@ function useFetch(url) {
 
   useEffect(() => {
     const abortController = new AbortController();
-
+    let isMounted = true;
     setLoading(true);
     axios
       .get(url, { signal: abortController.signal })
       .then((response) => {
-        setData(response.data);
+        isMounted && setData(response.data);
       })
       .catch((err) => {
         console.log(err.name);
@@ -24,9 +24,10 @@ function useFetch(url) {
         setLoading(false);
       });
     return () => {
+      isMounted = false;
       abortController.abort();
     };
-  }, [url]);
+  });
   return { data, loading, error };
 }
 
