@@ -172,7 +172,6 @@ const Card = () => {
     loading,
     error,
   } = useFetch("http://localhost:8080/product");
-  console.log(Products);
 
   if (loading) return <LoadingSpinner_template specialHeight="35vh" />;
 

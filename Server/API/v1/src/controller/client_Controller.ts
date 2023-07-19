@@ -11,7 +11,7 @@ const clientSignUp = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("token", req.headers["authorization"]);
+  //console.log("token", req.headers["authorization"]);
   let newClientData: Client_Interface = {
     Name: req.body.name,
     Email: req.body.email,

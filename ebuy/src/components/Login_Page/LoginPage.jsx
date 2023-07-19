@@ -74,14 +74,14 @@ const LoginPage = () => {
           {/* remember me + forgot password */}
 
           <div className="RememberForgot d-flex justify-content-between mb-2">
-            <div class="rememberMe form-check">
+            <div className="rememberMe form-check">
               <input
                 className="form-check-input"
                 type="checkbox"
                 value=""
                 id="flexCheckDefault"
               />
-              <label className="form-check-label" for="flexCheckDefault">
+              <label className="form-check-label" htmlFor="flexCheckDefault">
                 Remember me
               </label>
             </div>

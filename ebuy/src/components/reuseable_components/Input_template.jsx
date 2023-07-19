@@ -30,18 +30,21 @@ const Input_template = ({ label, value, onChange, type, placeholder }) => {
       icon = <AlternateEmailIcon />;
   }
   return (
-    <div class="input-group ms-1 me-1 mt-1 mb-3">
-      <span class="input-group-text d-none d-md-inline w-25" id="basic-addon1">
+    <div className="input-group ms-1 me-1 mt-1 mb-3">
+      <span
+        className="input-group-text d-none d-md-inline w-25"
+        id="basic-addon1"
+      >
         {label}
       </span>
-      <span class="input-group-text d-inline d-md-none" id="basic-addon1">
+      <span className="input-group-text d-inline d-md-none" id="basic-addon1">
         {icon}
       </span>
       <input
         value={value}
         onChange={onChange}
         type={type}
-        class="form-control"
+        className="form-control"
         placeholder={placeholder}
         aria-describedby="basic-addon1"
         required

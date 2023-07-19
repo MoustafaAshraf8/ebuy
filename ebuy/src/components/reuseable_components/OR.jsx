@@ -3,7 +3,7 @@ import React from "react";
 const OR = () => {
   return (
     <div className="orSeparator d-flex justify-content-between">
-      <hr class="hr d-block col-5" />
+      <hr className="hr d-block col-5" />
       <span className="d-block col-2 text-center">OR</span>
       <hr className="hr d-block col-5" />
     </div>

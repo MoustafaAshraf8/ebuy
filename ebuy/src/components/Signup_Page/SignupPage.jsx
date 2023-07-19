@@ -1,13 +1,7 @@
-import React, { useEffect, useState } from "react";
-import PersonIcon from "@mui/icons-material/Person";
+import React, { useState } from "react";
 import Input_template from "../reuseable_components/Input_template";
-import OR from "../reuseable_components/OR";
 import Button_template from "../reuseable_components/Button_template";
-import LockIcon from "@mui/icons-material/Lock";
-import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
-
 import usePost from "../Shared/usePost";
-import axios from "axios";
 
 const SignupPage = () => {
   let [Name, setName] = useState("");
@@ -78,23 +72,6 @@ const SignupPage = () => {
     },
     Submit
   );
-
-  //_____________________________________________
-  //   useEffect(() => {
-  //     console.log("inside useEffect", Submit);
-  //     if (Submit) {
-  //       console.log("inside useEffect if condition", Submit);
-  //       axios.post("http://localhost:8080/client/signUp", {
-  //         name: Name,
-  //         email: Email,
-  //         password: "testpassword",
-  //         phone: Phone,
-  //         address: Address,
-  //       });
-  //     }
-  //   });
-
-  //_____________________________________________
 
   return (
     <div

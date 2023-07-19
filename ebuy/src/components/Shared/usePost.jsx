@@ -7,7 +7,6 @@ function usePost(url, postBody, Submit) {
   let [error, setError] = useState(null);
 
   function execute() {
-    console.log("execute ()");
     setLoading(true);
     axios
       .post(url, postBody)
@@ -24,7 +23,6 @@ function usePost(url, postBody, Submit) {
   }
 
   useEffect(() => {
-    //console.log("usePost useEffect", Submit);
     if (Submit) execute();
   }, [Submit]);
 

@@ -14,11 +14,11 @@ const SearchBar = (props) => {
       <div className="input-group w-100 p-0">
         <div className="form-outline d-flex col-12 col-sm-11 h-100 pt-2">
           <input
+            className="nav-input nav-progressive-attribute w-100"
             value={SearchValue}
             onChange={SearchValueChanged}
             type="search"
             id="form1"
-            class="nav-input nav-progressive-attribute w-100"
             style={{
               borderRadius: "10px",
               backgroundColor: "white",
@@ -27,9 +27,9 @@ const SearchBar = (props) => {
           />
         </div>
         <button
+          className="btn btn-outline-* d-none d-sm-block col-sm-1"
           id="search-button"
           type="button"
-          className="btn btn-outline-* d-none d-sm-block col-sm-1"
         >
           <SearchIcon style={{ fontSize: Number(props.fontSize) }} />
         </button>

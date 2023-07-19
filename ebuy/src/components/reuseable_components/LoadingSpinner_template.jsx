@@ -6,14 +6,14 @@ function LoadingSpinner_template({ specialHeight }) {
 
   return (
     <div
-      class="container-fluid d-flex justify-content-center align-items-center"
+      className="container-fluid d-flex justify-content-center align-items-center"
       style={{
         border: "0px solid red",
         height: height,
       }}
     >
       <div
-        class="spinner-grow"
+        className="spinner-grow"
         style={{
           width: "20vh",
           height: "20vh",
