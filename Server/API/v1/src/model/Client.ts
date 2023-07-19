@@ -56,7 +56,7 @@ export class Client {
       let jwtObject: object = this.createEssentials(userId);
       return jwtObject;
     } catch (err) {
-      return { error: err };
+      return { error: Object(err).detail };
     }
   };
 

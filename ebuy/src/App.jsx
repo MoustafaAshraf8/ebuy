@@ -9,7 +9,10 @@ import ProductPage from "./components/Product_Page/ProductPage";
 import CartPage from "./components/Cart_Page/Cart";
 function App() {
   return (
-    <div className="App">
+    <div
+      className="App"
+      style={{ border: "0px solid purple", height: "100vh" }}
+    >
       <Routes>
         <Route
           path="/"

@@ -3,9 +3,13 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import ProductImage from "./components/ProductImage";
 import ProductData from "./components/ProductData";
 import Button_template from "../reuseable_components/Button_template";
+import LoadingSpinner_template from "../reuseable_components/LoadingSpinner_template";
+import Error_template from "../reuseable_components/Error_template";
 import useFetch from "../Shared/useFetch";
 
 const ProductPage = () => {
+  let navBar_height = "10vh";
+
   let product_id = window.location.href.split("/").at(-1);
 
   let {
@@ -27,43 +31,9 @@ const ProductPage = () => {
     console.log("add to cart");
   };
 
-  if (loading)
-    return (
-      <div
-        class="container-fluid d-flex justify-content-center align-items-center"
-        style={{ border: "0px solid red", height: "35vh" }}
-      >
-        <div
-          class="spinner-grow"
-          style={{
-            width: "20vh",
-            height: "20vh",
-            color: "#474646",
-          }}
-          role="status"
-        ></div>
-      </div>
-    );
+  if (loading) return <LoadingSpinner_template loading={loading} />;
 
-  if (error)
-    return (
-      <div
-        class="container-fluid d-flex justify-content-center align-items-center p-4 col-12"
-        style={{ border: "1px solid red" }}
-      >
-        <img
-          className="col-12 col-sm-6 col-md-4 col-lg-3"
-          src="./Image/error_image.png"
-          style={{
-            // width: "20%",
-            height: "80%",
-            // color: "#474646",
-            border: "0px solid red",
-          }}
-          alt=""
-        />
-      </div>
-    );
+  if (error || product == null) return <Error_template error={error} />;
 
   if (product != null)
     return (

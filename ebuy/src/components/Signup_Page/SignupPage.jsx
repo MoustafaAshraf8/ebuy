@@ -40,19 +40,18 @@ const SignupPage = () => {
   let emailChanged = (e) => {
     setEmail(e.target.value);
     console.log(Email);
-    if (!Email.match(regexEmail)) setSubmit(false);
+    setSubmit(false);
   };
   let passwordChanged = (e) => {
     setPassword(e.target.value);
     console.log(Password);
-    if (!Password.match(regexPassword)) setSubmit(false);
+    setSubmit(false);
   };
 
   let submitHandle = (e) => {
     e.preventDefault();
     if (!isFormValid()) {
       console.log("not valid");
-      submitValue = false;
       setSubmit(submitValue);
     } else {
       submitValue = true;
