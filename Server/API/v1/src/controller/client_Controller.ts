@@ -2,7 +2,10 @@ import express, { Request, Response, NextFunction } from "express";
 import { Client } from "../model/Client.js";
 import { Client_Interface } from "../Interface/Client_Interface.js";
 import { Client_signIn_Interface } from "../Interface/Client_signIn_Interface.js";
+import { Error_message_Interface } from "../Interface/Error_message_Interface.js";
 import { addClient } from "../service/client_Service.js";
+import { authenticateClient } from "../service/client_Service.js";
+import { JWT_Class } from "../../utilities/JWT_Class.js";
 const clientSignUp = async (
   req: Request,
   res: Response,
@@ -16,10 +19,18 @@ const clientSignUp = async (
     Phone: req.body.phone,
     Address: req.body.address,
   };
-  let result = await addClient(newClientData);
-  console.log(result);
-  //if (Object(result).accessToken) res.cookie("jwt", result);
-  res.json(result);
+
+  //step-1 add to db
+  let result: Client_Interface | Error_message_Interface = await addClient(
+    newClientData
+  );
+
+  //step-2 generate jwt
+  if ("id" in result) {
+    let id = result.id;
+    let jwtObj = JWT_Class.create(String(id));
+    res.json(jwtObj);
+  } else res.json(result);
 };
 
 const clientSignIn = async (
@@ -31,7 +42,7 @@ const clientSignIn = async (
     Email: req.body.email,
     Password: req.body.password,
   };
-  let result = await Client.signIn(oldClientData);
+  let result = await authenticateClient(oldClientData);
   res.json(result);
 };
 

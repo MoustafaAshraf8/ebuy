@@ -3,25 +3,24 @@ import { Seller_model } from "../model/Seller_model.js";
 import { Seller_Interface } from "../Interface/Seller_Interface.js";
 import { Seller_signIn_Interface } from "../Interface/Seller_signIn_Interface.js";
 import { Product_Interface } from "../Interface/Product_Interface.js";
-import { addSeller } from "../service/seller_Service.js";
+import { addSeller, rememberSeller } from "../service/seller_Service.js";
 
 const sellerSignUp = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  let newSeller: Seller_Interface = {
+  let newSellerData: Seller_Interface = {
     Name: req.body.name,
     Email: req.body.email,
     Password: req.body.password,
     Phone: req.body.phone,
     Address: req.body.address,
   };
-  //   let newSeller: Seller_model = new Seller_model(newSellerData);
-  //   let result = await newSeller.signUp();
-  let result = await addSeller(newSeller);
-  console.log(result);
-  res.json(result);
+
+  let newSeller = await addSeller(newSellerData);
+  console.log(newSeller);
+  res.json(newSeller);
 };
 
 const sellerSignIn = async (
@@ -33,8 +32,8 @@ const sellerSignIn = async (
     Email: req.body.email,
     Password: req.body.password,
   };
-  let result = await Seller_model.signIn(oldSellerData);
-  res.json(result);
+  let oldSeller = await rememberSeller(oldSellerData);
+  res.json(oldSeller);
 };
 
 const SellerAddProduct = async (
