@@ -31,38 +31,37 @@ const ProductPage = () => {
     console.log("add to cart");
   };
 
-  if (loading) return <LoadingSpinner_template loading={loading} />;
+  if (loading) return <LoadingSpinner_template />;
 
-  if (error || product == null) return <Error_template error={error} />;
+  if (error || product == null) return <Error_template />;
 
-  if (product != null)
-    return (
+  return (
+    <div
+      className="container-fluid d-md-flex flex-row justify-content-between align-items-start p-5 pt-4 m-0"
+      style={productPageStyle}
+    >
       <div
-        className="container-fluid d-md-flex flex-row justify-content-between align-items-start p-5 pt-4 m-0"
-        style={productPageStyle}
+        className="container-fluid d-flex flex-row justify-content-center align-items-start p-2 m-1"
+        style={productPageContentStyle}
       >
-        <div
-          className="container-fluid d-flex flex-row justify-content-center align-items-start p-2 m-1"
-          style={productPageContentStyle}
-        >
-          <ProductImage src="\Image\product_placeholder.png" />
-        </div>
+        <ProductImage src="\Image\product_placeholder.png" />
+      </div>
 
-        <div
-          className="container-fluid d-flex flex-column justify-content-start align-items-start p-2 m-1"
-          style={productPageContentStyle}
-        >
-          <ProductData {...product} key={product.id} />
-          <div className="container-fluid p-0">
-            <Button_template
-              onClick={clicked}
-              text={<AddShoppingCartIcon />}
-              style={{ backgroundColor: "rgb(0,128,0)", border: "none" }}
-            />
-          </div>
+      <div
+        className="container-fluid d-flex flex-column justify-content-start align-items-start p-2 m-1"
+        style={productPageContentStyle}
+      >
+        <ProductData {...product} key={product.id} />
+        <div className="container-fluid p-0">
+          <Button_template
+            onClick={clicked}
+            text={<AddShoppingCartIcon />}
+            style={{ backgroundColor: "rgb(0,128,0)", border: "none" }}
+          />
         </div>
       </div>
-    );
+    </div>
+  );
 
   return <div></div>;
 };
