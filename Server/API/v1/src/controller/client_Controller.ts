@@ -28,8 +28,13 @@ const clientSignUp = async (
   //step-2 generate jwt
   if ("id" in result) {
     let id = result.id;
-    let jwtObj = JWT_Class.create(String(id));
-    res.json(jwtObj);
+    let accessToken = JWT_Class.createAccessToken(String(id));
+    let refreshToken = JWT_Class.createRefreshToken(String(id));
+    res.cookie("refreshCookie", refreshToken, {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+    res.json({ accessToken });
   } else res.json(result);
 };
 
@@ -50,8 +55,13 @@ const clientSignIn = async (
   //step-2 generate jwt
   if ("id" in result) {
     let id = result.id;
-    let jwtObj = JWT_Class.create(String(id));
-    res.json(jwtObj);
+    let accessToken = JWT_Class.createAccessToken(String(id));
+    let refreshToken = JWT_Class.createRefreshToken(String(id));
+    res.cookie("refreshCookie", refreshToken, {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+    res.json({ accessToken });
   } else res.json(result);
 };
 
