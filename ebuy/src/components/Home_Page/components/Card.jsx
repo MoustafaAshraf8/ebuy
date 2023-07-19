@@ -213,7 +213,7 @@ const Card = () => {
   return (
     <div
       className="container-fluid d-flex row justify-content-center m-0 p-0"
-      style={{ border: "1px solid red", minHeight: "50vh" }}
+      style={{ border: "0px solid red", minHeight: "50vh" }}
     >
       {Products != null ? (
         Products.map((product) => (

@@ -55,8 +55,8 @@ export class Client {
       //let payment = await this.createPayment(userId);
       let jwtObject: object = this.createEssentials(userId);
       return jwtObject;
-    } catch {
-      return false;
+    } catch (err) {
+      return { error: err };
     }
   };
 

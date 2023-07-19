@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import Input_template from "../reuseable_components/Input_template";
 import OR from "../reuseable_components/OR";
@@ -7,6 +7,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 
 import usePost from "../Shared/usePost";
+import axios from "axios";
 
 const SignupPage = () => {
   let [Name, setName] = useState("");
@@ -39,12 +40,12 @@ const SignupPage = () => {
   let emailChanged = (e) => {
     setEmail(e.target.value);
     console.log(Email);
-    //if (!Email.match(regexEmail)) setSubmit(false);
+    if (!Email.match(regexEmail)) setSubmit(false);
   };
   let passwordChanged = (e) => {
     setPassword(e.target.value);
     console.log(Password);
-    //if (!Password.match(regexPassword)) setSubmit(false);
+    if (!Password.match(regexPassword)) setSubmit(false);
   };
 
   let submitHandle = (e) => {
@@ -65,7 +66,7 @@ const SignupPage = () => {
     submitValue = false;
     setSubmit(submitValue);
   }
-  console.log("before usePost: ", submitValue);
+  //console.log("before usePost: ", submitValue);
 
   usePost(
     "http://localhost:8080/client/signUp",
@@ -76,8 +77,25 @@ const SignupPage = () => {
       phone: Phone,
       address: Address,
     },
-    submitValue
+    Submit
   );
+
+  //_____________________________________________
+  //   useEffect(() => {
+  //     console.log("inside useEffect", Submit);
+  //     if (Submit) {
+  //       console.log("inside useEffect if condition", Submit);
+  //       axios.post("http://localhost:8080/client/signUp", {
+  //         name: Name,
+  //         email: Email,
+  //         password: "testpassword",
+  //         phone: Phone,
+  //         address: Address,
+  //       });
+  //     }
+  //   });
+
+  //_____________________________________________
 
   return (
     <div
