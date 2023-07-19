@@ -4,6 +4,7 @@ import { pool } from "../../../../config/config.js";
 import { Client_Interface } from "../Interface/Client_Interface.js";
 import { Client_signIn_Interface } from "../Interface/Client_signIn_Interface.js";
 import { Encryptor } from "../../utilities/Encryptor.js";
+import { QueryResult } from "pg";
 export class Client {
   private Name: string;
   private Email: string;
@@ -52,9 +53,11 @@ export class Client {
       let result = await pool.query(query);
       let userId = result.rows[0].id;
       console.log(`userId: ${userId}`);
+      console.log(result.rows);
       //let payment = await this.createPayment(userId);
       let jwtObject: object = this.createEssentials(userId);
-      return jwtObject;
+      //return jwtObject;
+      return result.rows[0];
     } catch (err) {
       return { error: Object(err).detail };
     }

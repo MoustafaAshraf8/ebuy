@@ -3,21 +3,23 @@ import { Seller_model } from "../model/Seller_model.js";
 import { Seller_Interface } from "../Interface/Seller_Interface.js";
 import { Seller_signIn_Interface } from "../Interface/Seller_signIn_Interface.js";
 import { Product_Interface } from "../Interface/Product_Interface.js";
+import { addSeller } from "../service/seller_Service.js";
 
 const sellerSignUp = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  let newSellerData: Seller_Interface = {
+  let newSeller: Seller_Interface = {
     Name: req.body.name,
     Email: req.body.email,
     Password: req.body.password,
     Phone: req.body.phone,
     Address: req.body.address,
   };
-  let newSeller: Seller_model = new Seller_model(newSellerData);
-  let result = await newSeller.signUp();
+  //   let newSeller: Seller_model = new Seller_model(newSellerData);
+  //   let result = await newSeller.signUp();
+  let result = await addSeller(newSeller);
   console.log(result);
   res.json(result);
 };
