@@ -42,8 +42,17 @@ const clientSignIn = async (
     Email: req.body.email,
     Password: req.body.password,
   };
-  let result = await authenticateClient(oldClientData);
-  res.json(result);
+
+  //step-1 authenticate
+  let result: Client_Interface | Error_message_Interface =
+    await authenticateClient(oldClientData);
+
+  //step-2 generate jwt
+  if ("id" in result) {
+    let id = result.id;
+    let jwtObj = JWT_Class.create(String(id));
+    res.json(jwtObj);
+  } else res.json(result);
 };
 
 export { clientSignUp, clientSignIn };
