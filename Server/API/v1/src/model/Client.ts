@@ -32,14 +32,6 @@ export class Client {
     return result.rows[0];
   };
 
-  //   private createJWT = async (userId: number): Promise<object> => {
-  //     let accessToken = jwt.sign(
-  //       String(userId),
-  //       String(process.env.ACCESS_TOKEN_SECRET)
-  //     );
-  //     return { accessToken: accessToken };
-  //   };
-
   private createEssentials = async (userId: number): Promise<object | void> => {
     let payment = await this.createPayment(userId);
     let cart = await this.createCart(userId);
@@ -82,6 +74,24 @@ export class Client {
       } else {
         return { success: false, error: "wrong email or password" };
       }
+    } catch (err) {
+      return { success: false, error: Object(err).detail };
+    }
+  };
+
+  public static addToCart = async (
+    userid: number,
+    productid: number,
+    quantity: number
+  ): Promise<Client_Interface | Error_message_Interface> => {
+    try {
+      let query = `
+      insert into client_cart_product (cart_id, product_id, quantity)
+         select id, ${productid}, ${quantity}
+            from client_cart
+            where client_id=${userid} returning *;`;
+      let result = await pool.query(query);
+      return result.rows[0];
     } catch (err) {
       return { success: false, error: Object(err).detail };
     }

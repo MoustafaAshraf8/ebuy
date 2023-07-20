@@ -24,4 +24,13 @@ const authenticateClient = async (
   return oldClient;
 };
 
-export { addClient, authenticateClient };
+const addToClientCart = async (
+  userid: number,
+  productid: number,
+  quantity: number
+) => {
+  let result = await Client.addToCart(userid, productid, quantity);
+  return result;
+};
+
+export { addClient, authenticateClient, addToClientCart };

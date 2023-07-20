@@ -1,8 +1,14 @@
 import express from "express";
-import { clientSignUp, clientSignIn } from "../controller/client_Controller.js";
+import { verifyReCookie_middleware } from "../middleware/verifyCookie_middleware.js";
+import {
+  clientSignUp,
+  clientSignIn,
+  addToCart,
+} from "../controller/client_Controller.js";
 let clientRouter: express.Router = express.Router();
 clientRouter.route("/signUp").post(clientSignUp);
 clientRouter.route("/signIn").post(clientSignIn);
+clientRouter.route("/cart").post(verifyReCookie_middleware, addToCart);
 
 clientRouter
   .route("/:id")

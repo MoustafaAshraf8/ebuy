@@ -27,7 +27,7 @@ function useFetch(url) {
       isMounted = false;
       abortController.abort();
     };
-  });
+  }, [url]);
   return { data, loading, error };
 }
 

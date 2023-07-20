@@ -3,6 +3,7 @@ import { versionControle } from "./utilities/versionControle.js";
 import { v1router } from "./API/v1/v1router.js";
 import bodyparser from "body-parser";
 import cors from "cors";
+import cookies from "cookie-parser";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -10,6 +11,7 @@ let app: Application = express();
 
 //essential middlewares
 app.use(cors());
+app.use(cookies());
 app.use(bodyparser.json({ type: "application/json" }));
 app.use(bodyparser.urlencoded({ extended: true }));
 

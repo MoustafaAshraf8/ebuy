@@ -173,10 +173,10 @@ const Card = () => {
     error,
   } = useFetch("http://localhost:8080/product");
 
-  if (loading) return <LoadingSpinner_template specialHeight="35vh" />;
+  if (loading) return <LoadingSpinner_template specialHeight="50vh" />;
 
   if (error || Products == null)
-    return <Error_template specificHeight={true} />;
+    return <Error_template specificHeight="50vh" />;
 
   if (Products)
     return (
