@@ -5,6 +5,7 @@ import { Error_message_Interface } from "../Interface/Error_message_Interface.js
 import { Cart_product_Interface } from "../Interface/Cart_product_Interface.js";
 import { clientSignUp_service } from "../service/client_Service.js";
 import { clientLogIn_service } from "../service/client_Service.js";
+import { getCartItems_service } from "../service/client_Service.js";
 import { authenticateClient } from "../service/client_Service.js";
 import { addToClientCart } from "../service/client_Service.js";
 import { JWT_Class } from "../../utilities/JWT_Class.js";
@@ -74,4 +75,14 @@ const addToCart = async (req: Request, res: Response, next: NextFunction) => {
   res.json(result);
 };
 
-export { clientSignUp, clientSignIn, addToCart };
+const getCartItems = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  let userid = req.headers["user"];
+  let result = await getCartItems_service(Number(userid));
+  res.json(result);
+};
+
+export { clientSignUp, clientSignIn, addToCart, getCartItems };

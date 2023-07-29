@@ -73,7 +73,7 @@ const ProductPage = () => {
         <div className="container-fluid p-0">
           <Button_template
             onClick={clicked}
-            text={Submit ? <TaskAltIcon /> : <AddShoppingCartIcon />}
+            text={data2 ? <TaskAltIcon /> : <AddShoppingCartIcon />}
             style={{ backgroundColor: "rgb(0,128,0)", border: "none" }}
           />
         </div>

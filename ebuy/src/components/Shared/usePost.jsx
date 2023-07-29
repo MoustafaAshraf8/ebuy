@@ -9,7 +9,7 @@ function usePost(url, postBody, Submit) {
   function execute() {
     setLoading(true);
     axios
-      .post(url, postBody)
+      .post(url, postBody, { withCredentials: true })
       .then((response) => {
         setData(response.data);
         console.log(response.data);

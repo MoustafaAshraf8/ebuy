@@ -14,7 +14,9 @@ const clientSignUp_service = async (
 const clientLogIn_service = async (
   client: Client_signIn_Interface
 ): Promise<Client_Interface | Error_message_Interface> => {
-  let result = await Client.signIn(client);
+  let result: Client_Interface | Error_message_Interface = await Client.signIn(
+    client
+  );
   return result;
 };
 
@@ -39,9 +41,15 @@ const addToClientCart = async (
   return result;
 };
 
+const getCartItems_service = async (userid: number) => {
+  let result = await Client.getCartItems(userid);
+  return result;
+};
+
 export {
   clientSignUp_service,
   clientLogIn_service,
   authenticateClient,
   addToClientCart,
+  getCartItems_service,
 };

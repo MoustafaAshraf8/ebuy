@@ -4,11 +4,15 @@ import {
   clientSignUp,
   clientSignIn,
   addToCart,
+  getCartItems,
 } from "../controller/client_Controller.js";
 let clientRouter: express.Router = express.Router();
 clientRouter.route("/signUp").post(clientSignUp);
 clientRouter.route("/signIn").post(clientSignIn);
-clientRouter.route("/cart").post(verifyReCookie_middleware, addToCart);
+clientRouter
+  .route("/cart")
+  .post(verifyReCookie_middleware, addToCart)
+  .get(verifyReCookie_middleware, getCartItems);
 
 clientRouter
   .route("/:id")

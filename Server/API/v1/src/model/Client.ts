@@ -96,4 +96,19 @@ export class Client {
       return { success: false, error: Object(err).detail };
     }
   };
+
+  public static getCartItems = async (userid: number) => {
+    try {
+      let query: string = `
+      SELECT product.id, product.name, product.price, product.quantity, product.discount, product.category, product.description
+      FROM (
+      (client_cart INNER JOIN client_cart_product ON client_cart.id = client_cart_product.cart_id)
+      INNER JOIN product ON client_cart_product.product_id = product.id)
+      where client_cart.client_id=${userid};`;
+      let result = await pool.query(query);
+      return result.rows;
+    } catch (err) {
+      return { success: false, error: Object(err).detail };
+    }
+  };
 }
