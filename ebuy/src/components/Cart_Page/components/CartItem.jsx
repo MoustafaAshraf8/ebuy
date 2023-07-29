@@ -36,7 +36,7 @@ const CartItem = (props) => {
         <Product_image_template
           href="#"
           anchorStyle={{ height: "100px", width: "100px" }}
-          src={props.imgURL}
+          src="\Image\product_placeholder.png"
           imgStyle={{ height: "100px", width: "100px" }}
         />
       </div>

@@ -10,7 +10,7 @@ function useFetch(url) {
     let isMounted = true;
     setLoading(true);
     axios
-      .get(url, { signal: abortController.signal })
+      .get(url, { withCredentials: true }, { signal: abortController.signal })
       .then((response) => {
         isMounted && setData(response.data);
       })
