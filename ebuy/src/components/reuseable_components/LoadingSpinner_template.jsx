@@ -8,7 +8,7 @@ function LoadingSpinner_template({ specialHeight }) {
     <div
       className="container-fluid d-flex justify-content-center align-items-center"
       style={{
-        border: "1px solid red",
+        border: "0px solid red",
         height: height,
       }}
     >

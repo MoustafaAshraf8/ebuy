@@ -7,7 +7,7 @@ function Error_template({ specificHeight }) {
   return (
     <div
       className="container-fluid d-flex justify-content-center align-items-center col-12"
-      style={{ border: "1px solid red", height: height }}
+      style={{ border: "0px solid red", height: height }}
     >
       <img
         className="col-8 col-sm-6 col-md-4 col-lg-2 w-lg-75"

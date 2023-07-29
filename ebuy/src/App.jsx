@@ -1,5 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.js";
 import { Route, Routes } from "react-router-dom";
 import NavigationBar from "./components/Navigation_Bar/NavigationBar";
 import HomePage from "./components/Home_Page/HomePage";
@@ -16,12 +18,10 @@ function App() {
       <NavigationBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/product" element={<ProductPage />} />
-        <Route path="/product/:id" element={<ProductPage />} />
+        <Route exact path="/product/:id" element={<ProductPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/shoppingcart" element={<CartPage />} />
-        {/* <Route path="/product" element={<ProductPage />} /> */}
       </Routes>
     </div>
   );
