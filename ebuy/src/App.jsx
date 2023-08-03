@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
+import { Suspense } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.js";
 import { Route, Routes } from "react-router-dom";
@@ -11,19 +12,21 @@ import ProductPage from "./components/Product_Page/ProductPage";
 import CartPage from "./components/Cart_Page/Cart";
 function App() {
   return (
-    <div
-      className="App"
-      style={{ border: "0px solid purple", height: "100vh" }}
-    >
-      <NavigationBar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route exact path="/product/:id" element={<ProductPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/cart" element={<CartPage />} />
-      </Routes>
-    </div>
+    <Suspense fallback={<h1>Loading...</h1>}>
+      <div
+        className="App"
+        style={{ border: "0px solid purple", height: "100vh" }}
+      >
+        <NavigationBar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route exact path="/product/:id" element={<ProductPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/cart" element={<CartPage />} />
+        </Routes>
+      </div>
+    </Suspense>
   );
 }
 

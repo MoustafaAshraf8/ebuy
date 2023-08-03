@@ -72,7 +72,7 @@ const NavigationBar = () => {
             <SearchBar {...iconFontStyle.largeIcon} />
 
             <li className="nav-item">
-              <a className="nav-link" href="/shoppingcart">
+              <a className="nav-link" href="/cart">
                 <ShoppingCartIcon style={iconFontStyle.largeIcon} />
               </a>
             </li>

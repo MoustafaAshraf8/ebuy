@@ -1,19 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import Product_image_template from "../../reuseable_components/Product_image_template";
 import Button_template from "../../reuseable_components/Button_template";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import LockIcon from "@mui/icons-material/Lock";
+import LoadingSpinner_template from "../../reuseable_components/LoadingSpinner_template";
+import Error_template from "../../reuseable_components/Error_template";
+import usePost from "../../Shared/usePost";
 const CardData = ({ product }) => {
   let imgStyle = {
     width: "100%",
     height: "100%",
   };
   let productPath = `/product/${product.id}`;
+
+  let [submit, setSubmit] = useState(false);
+
   let addToCart = () => {
-    console.log("added to cart from homepage");
+    setSubmit(true);
+    console.log(`added to cart from homepage, submit=${submit}`);
   };
+
+  let { data, loading, error } = usePost(
+    "http://localhost:8080/client/cart",
+    {
+      productid: product.id,
+      quantity: 1,
+    },
+    submit
+  );
+
+  //   if (loading) return <LoadingSpinner_template />;
+
+  //   if (error || product == null) return <Error_template />;
+
   return (
     <div
-      className="card border-0 col-12 col-sm-6 col-md-4 col-lg-3 p-3 m-0"
+      className="card border-0 col-10 col-sm-8 col-md-4 col-lg-2 p-3 m-5"
       style={{ height: "50vh" }}
     >
       <Product_image_template
@@ -53,17 +76,17 @@ const CardData = ({ product }) => {
           ></span>
         </div>
         {/* <button
-          className="btn btn-primary"
-          type="button"
-          style={{ backgroundColor: "rgb(0,128,0)", border: "none" }}
-        >
-          <span className="d-inline">
-            <AddShoppingCartIcon />
-          </span>
-        </button> */}
+         className="btn btn-primary"
+         type="button"
+         style={{ backgroundColor: "rgb(0,128,0)", border: "none" }}
+      >
+         <span className="d-inline">
+         <AddShoppingCartIcon />
+         </span>
+      </button> */}
 
         <Button_template
-          text={<AddShoppingCartIcon />}
+          text={error ? <LockIcon /> : <AddShoppingCartIcon />}
           style={{ backgroundColor: "rgb(0,128,0)", border: "none" }}
           onClick={addToCart}
         />

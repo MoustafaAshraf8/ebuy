@@ -72,6 +72,7 @@ const addToCart = async (req: Request, res: Response, next: NextFunction) => {
   let quantity = req.body.quantity;
   let result: Client_Interface | Error_message_Interface =
     await addToClientCart(Number(userid), Number(productid), Number(quantity));
+  //res.statusCode = !result.success? ? 403 : 200;
   res.json(result);
 };
 

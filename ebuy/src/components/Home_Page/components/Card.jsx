@@ -181,7 +181,7 @@ const Card = () => {
   if (Products)
     return (
       <div
-        className="container-fluid d-flex row justify-content-center m-0 p-0"
+        className="container-fluid d-flex row justify-content-center m-0 p-4"
         style={{ border: "0px solid red", minHeight: "50vh" }}
       >
         {Products != null ? (

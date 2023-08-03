@@ -11,30 +11,29 @@ import usePost from "../Shared/usePost";
 
 const ProductPage = () => {
   let navBar_height = "10vh";
+  let productPageStyle = {
+    minHeight: "calc(100vh - 10vh)", //10vh : height of navbar
+    border: "1px solid red",
+  };
+  let productPageContentStyle = {
+    //  minHeight: "50vh",
+    border: "0px solid green",
+  };
 
   let product_id = window.location.href.split("/").at(-1);
 
   let [Submit, setSubmit] = useState(false);
-
-  let {
-    data: product,
-    loading,
-    error,
-  } = useFetch(`http://localhost:8080/product/${product_id}`);
-
-  let productPageStyle = {
-    minHeight: "calc(100vh - 10vh)", //10vh : height of navbar
-    border: "0px solid red",
-  };
-  let productPageContentStyle = {
-    minHeight: "50vh",
-    border: "0px solid green",
-  };
+  let [remove, setRemove] = useState(false);
 
   let clicked = () => {
     console.log("add to cart");
     setSubmit(true);
   };
+  let {
+    data: product,
+    loading,
+    error,
+  } = useFetch(`http://localhost:8080/product/${product_id}`);
 
   let {
     data: data2,
