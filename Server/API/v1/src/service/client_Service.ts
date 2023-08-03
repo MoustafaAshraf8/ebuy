@@ -40,6 +40,13 @@ const addToClientCart = async (
   let result = await Client.addToCart(userid, productid, quantity);
   return result;
 };
+const deleteFromClientCart_service = async (
+  userid: number,
+  productid: number
+) => {
+  let result = await Client.deleteFromCart(userid, productid);
+  return result;
+};
 
 const getCartItems_service = async (userid: number) => {
   let result = await Client.getCartItems(userid);
@@ -52,4 +59,5 @@ export {
   authenticateClient,
   addToClientCart,
   getCartItems_service,
+  deleteFromClientCart_service,
 };

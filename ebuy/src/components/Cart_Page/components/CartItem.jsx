@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useReducer } from "react";
+import useDelete from "../../Shared/useDelete";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Product_image_template from "../../reuseable_components/Product_image_template";
 import Button_template from "../../reuseable_components/Button_template";
@@ -8,6 +9,9 @@ const CartItem = (props) => {
     border: "0px solid orange",
   };
   let elementClassName = "mx-0 mx-sm-2 mx-md-5";
+
+  const [submit, setSubmit] = useState(false);
+  console.log("submit: ", submit);
 
   let reducer = (Quantity, action) => {
     if (action.type == "increment") return { number: Quantity.number + 1 };
@@ -24,8 +28,15 @@ const CartItem = (props) => {
     dispatcher({ type: "decrement" });
   };
   let deleteItem = () => {
-    dispatcher({ type: "delete" });
+    //dispatcher({ type: "delete" });
+    console.log("test");
+    setSubmit(true);
   };
+
+  let { data, loding, error } = useDelete(
+    `http://localhost:8080/client/cart/${props.id}`,
+    submit
+  );
 
   return (
     <div
@@ -42,6 +53,7 @@ const CartItem = (props) => {
       </div>
       <div className={elementClassName}>{props.name}</div>
       <div className={elementClassName}>{props.price}</div>
+      <div className={elementClassName}>id: {props.id}</div>
       <div className={elementClassName}>
         <Button_template
           text="-"

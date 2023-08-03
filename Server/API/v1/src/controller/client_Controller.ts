@@ -8,6 +8,7 @@ import { clientLogIn_service } from "../service/client_Service.js";
 import { getCartItems_service } from "../service/client_Service.js";
 import { authenticateClient } from "../service/client_Service.js";
 import { addToClientCart } from "../service/client_Service.js";
+import { deleteFromClientCart_service } from "../service/client_Service.js";
 import { JWT_Class } from "../../utilities/JWT_Class.js";
 const clientSignUp = async (
   req: Request,
@@ -86,4 +87,18 @@ const getCartItems = async (
   res.json(result);
 };
 
-export { clientSignUp, clientSignIn, addToCart, getCartItems };
+const deleteCartItem = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  let userid = req.headers["user"];
+  let productid = req.url.split("/").at(-1);
+  let result = await deleteFromClientCart_service(
+    Number(userid),
+    Number(productid)
+  );
+  res.json(result);
+};
+
+export { clientSignUp, clientSignIn, addToCart, getCartItems, deleteCartItem };

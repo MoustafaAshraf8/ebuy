@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function useDelete(url, submit) {
@@ -7,21 +7,10 @@ function useDelete(url, submit) {
   let [error, setError] = useState(null);
 
   function execute() {
-    //  axios
-    //    .post(url, postBody, { withCredentials: true })
-    //    .then((response) => {
-    //      setData(response.data);
-    //      console.log(response.data);
-    //    })
-    //    .catch((err) => {
-    //      setError(err);
-    //    })
-    //    .finally(() => {
-    //      setLoading(false);
-    //    });
+    console.log("inside execute");
     setLoading(true);
     axios
-      .delete(url)
+      .delete(url, { withCredentials: true })
       .then((response) => {
         setData(response.data);
         console.log(response.data);
@@ -36,7 +25,7 @@ function useDelete(url, submit) {
 
   useEffect(() => {
     if (submit) execute();
-  }, [url]);
+  }, [submit]);
 
   return { data, loading, error };
 }

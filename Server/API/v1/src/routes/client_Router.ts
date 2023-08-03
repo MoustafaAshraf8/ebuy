@@ -5,6 +5,7 @@ import {
   clientSignIn,
   addToCart,
   getCartItems,
+  deleteCartItem,
 } from "../controller/client_Controller.js";
 let clientRouter: express.Router = express.Router();
 clientRouter.route("/signUp").post(clientSignUp);
@@ -13,6 +14,10 @@ clientRouter
   .route("/cart")
   .post(verifyReCookie_middleware, addToCart)
   .get(verifyReCookie_middleware, getCartItems);
+
+clientRouter
+  .route("/cart/:id")
+  .delete(verifyReCookie_middleware, deleteCartItem);
 
 clientRouter
   .route("/:id")

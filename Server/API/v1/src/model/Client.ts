@@ -97,10 +97,27 @@ export class Client {
     }
   };
 
+  //___________________________________________________
+  public static deleteFromCart = async (
+    userid: number,
+    productid: number
+  ): Promise<Client_Interface | Error_message_Interface> => {
+    try {
+      let query = `delete from client_cart_product
+      using (select * from client_cart where client_cart.client_id=${userid}) result
+      where result.id=client_cart_product.cart_id and client_cart_product.product_id=${productid} returning *;`;
+      let result = await pool.query(query);
+      return result.rows[0];
+    } catch (err) {
+      return { success: false, error: Object(err).detail };
+    }
+  };
+
+  //___________________________________________________
   public static getCartItems = async (userid: number) => {
     try {
       let query: string = `
-      SELECT product.id, product.name, product.price, product.quantity, product.discount, product.category, product.description
+        SELECT product.id, product.name, product.price, product.quantity, product.discount, product.category, product.description
       FROM (
       (client_cart INNER JOIN client_cart_product ON client_cart.id = client_cart_product.cart_id)
       INNER JOIN product ON client_cart_product.product_id = product.id)
