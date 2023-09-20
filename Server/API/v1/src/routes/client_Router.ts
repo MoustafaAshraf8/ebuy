@@ -8,9 +8,11 @@ import {
   deleteCartItem,
   updateCartItem,
 } from "../controller/client_Controller.js";
+import { tryCatch } from "../../utilities/tryCatch.js";
+
 let clientRouter: express.Router = express.Router();
-clientRouter.route("/signUp").post(clientSignUp);
-clientRouter.route("/signIn").post(clientSignIn);
+clientRouter.route("/signUp").post(tryCatch(clientSignUp));
+clientRouter.route("/signIn").post(tryCatch(clientSignIn));
 clientRouter
   .route("/cart")
   .post(verifyReCookie_middleware, addToCart)

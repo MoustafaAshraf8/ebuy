@@ -1,6 +1,7 @@
 import { pool } from "../../../../config/config.js";
 import { Client_Interface } from "../Interface/Client_Interface.js";
 import { Client_signIn_Interface } from "../Interface/Client_signIn_Interface.js";
+import { Client_query } from "./query/Client_query.js";
 import { Encryptor } from "../../utilities/Encryptor.js";
 import { Error_message_Interface } from "../Interface/Error_message_Interface.js";
 
@@ -19,61 +20,41 @@ export class Client {
     this.Address = client.Address;
   }
 
-  private createPayment = async (userId: number): Promise<object> => {
-    let query: string = `insert into client_payment (cid) values (${userId}) returning *;`;
-    let result = await pool.query(query);
-    return result.rows[0];
-  };
-  private createCart = async (userId: number): Promise<object> => {
-    let query: string = `insert into client_cart (client_id) values (${userId}) returning *;`;
-    let result = await pool.query(query);
-    return result.rows[0];
-  };
-
-  private createEssentials = async (userId: number): Promise<object | void> => {
-    let payment = await this.createPayment(userId);
-    let cart = await this.createCart(userId);
-    //  let jwtObj = await this.createJWT(userId);
-    //  return jwtObj;
-  };
-
-  public signUp = async (): Promise<
-    Client_Interface | Error_message_Interface
-  > => {
+  public signUp = async (): Promise<string> => {
     let hashedPassword = await Encryptor.hashPassword(this.Password);
-    let query = `insert into client (name, email, password, phone, address) values ('${this.Name}','${this.Email}','${hashedPassword}','${this.Phone}','${this.Address}') returning *;`;
+    let query = Client_query.signup_query(
+      this.Name,
+      this.Email,
+      hashedPassword,
+      this.Phone,
+      this.Address
+    );
     try {
       let result = await pool.query(query);
-      let userId = result.rows[0].id;
-      console.log(`userId: ${userId}`);
-      console.log(result.rows);
-      //let payment = await this.createPayment(userId);
-      let jwtObject: object = this.createEssentials(userId);
-      //return jwtObject;
-      return result.rows[0];
+      return JSON.stringify(Object(result)[4].rows);
     } catch (err) {
-      return { success: false, error: Object(err).detail };
+      console.log(err);
+      throw err;
     }
   };
 
   public static signIn = async (
     oldClient: Client_signIn_Interface
-  ): Promise<Client_Interface | Error_message_Interface> => {
-    let query = `select * from client where email='${oldClient.Email}';`;
-    let arrclient = await pool.query(query);
+  ): Promise<string> => {
+    let query = Client_query.signin_query(oldClient.Email);
     try {
+      let arrclient = await pool.query(query);
       let success = await Encryptor.verifyPassword(
         oldClient.Password,
-        await arrclient.rows[0].password
+        await arrclient.rows[0].person_password
       );
       if (success) {
-        //   delete arrclient.rows[0]["password"];
-        return arrclient.rows[0];
+        return JSON.stringify(arrclient.rows);
       } else {
-        return { success: false, error: "wrong email or password" };
+        throw new Error("wrong cridentials");
       }
     } catch (err) {
-      return { success: false, error: Object(err).detail };
+      throw new Error("user not found");
     }
   };
 

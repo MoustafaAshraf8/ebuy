@@ -9,13 +9,13 @@ import { updateCartItem_service } from "../service/client_Service.js";
 import { addToClientCart } from "../service/client_Service.js";
 import { deleteFromClientCart_service } from "../service/client_Service.js";
 import { JWT_Class } from "../../utilities/JWT_Class.js";
+import { tryCatch } from "../../utilities/tryCatch.js";
 
 const clientSignUp = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  //console.log("token", req.headers["authorization"]);
   let newClientData: Client_Interface = {
     Name: req.body.name,
     Email: req.body.email,
@@ -24,21 +24,13 @@ const clientSignUp = async (
     Address: req.body.address,
   };
 
-  //step-1 add to db
-  let result: Client_Interface | Error_message_Interface =
-    await clientSignUp_service(newClientData);
-
-  //step-2 generate jwt
-  if ("id" in result) {
-    let id = result.id;
-    let accessToken = JWT_Class.createAccessToken(String(id));
-    //let refreshToken = JWT_Class.createRefreshToken(String(id));
-    res.cookie("accessCookie", accessToken, {
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,
-    });
-    res.json({ accessToken });
-  } else res.json(result);
+  let result = await clientSignUp_service(newClientData);
+  res.cookie("accessCookie", Object(result[0]).accessToken, {
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000,
+  });
+  res.statusCode = 200;
+  res.json(result);
 };
 
 const clientSignIn = async (
@@ -52,19 +44,13 @@ const clientSignIn = async (
   };
 
   //step-1 authenticate
-  let result: Client_Interface | Error_message_Interface =
-    await clientLogIn_service(oldClientData);
+  let result = await clientLogIn_service(oldClientData);
 
-  //step-2 generate jwt
-  if ("id" in result) {
-    let id = result.id;
-    let accessToken = JWT_Class.createAccessToken(String(id));
-    res.cookie("accessCookie", accessToken, {
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,
-    });
-    res.json({ accessToken });
-  } else res.json(result);
+  res.cookie("accessCookie", Object(result[0]).accessToken, {
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000,
+  });
+  res.json(result);
 };
 
 const addToCart = async (req: Request, res: Response, next: NextFunction) => {

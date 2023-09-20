@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import { versionControle } from "./utilities/versionControle.js";
 import { v1router } from "./API/v1/v1router.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 import bodyparser from "body-parser";
 import cors from "cors";
 import cookies from "cookie-parser";
@@ -15,23 +16,6 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 
-// let corsOptions = {
-//   allowedHeaders: [
-//     "Origin",
-//     "X-Requested-With",
-//     "Content-Type",
-//     "Accept",
-//     "X-Access-Token",
-//     "Authorization",
-//     "Access-Control-Allow-Origin",
-//     "Access-Control-Allow-Headers",
-//     "Access-Control-Allow-Methods",
-//   ],
-//   methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-//   preflightContinue: true,
-//   origin: "*",
-// };
-
 //essential middlewares
 app.use(cors(corsOptions));
 app.use(cookies());
@@ -43,6 +27,9 @@ app.use(versionControle);
 
 //routing
 app.use("/v1", v1router);
+
+//error handler
+app.use(errorHandler);
 
 let port: number = Number(process.env.PORT) || 3000;
 app.listen((port = port), (): void => {
