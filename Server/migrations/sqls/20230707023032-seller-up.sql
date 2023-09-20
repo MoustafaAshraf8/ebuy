@@ -1,9 +1,6 @@
 create table seller
 (
-   id serial primary key,
-   name varchar(50) default 'seller',
-   email varchar(50) unique,
-   password varchar(100) not null,
-   phone varchar(50),
-   address varchar(50)
+   sellerid integer,
+   constraint seller_sellerid_fk foreign key (sellerid) references person (id),
+   constraint seller_sellerid_pk primary key (sellerid)
 );

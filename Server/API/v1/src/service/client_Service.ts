@@ -53,6 +53,15 @@ const getCartItems_service = async (userid: number) => {
   return result;
 };
 
+const updateCartItem_service = async (
+  userid: number,
+  productid: number,
+  quantity: number
+) => {
+  let result = await Client.updateCartItemQuantity(userid, productid, quantity);
+  return result;
+};
+
 export {
   clientSignUp_service,
   clientLogIn_service,
@@ -60,4 +69,5 @@ export {
   addToClientCart,
   getCartItems_service,
   deleteFromClientCart_service,
+  updateCartItem_service,
 };

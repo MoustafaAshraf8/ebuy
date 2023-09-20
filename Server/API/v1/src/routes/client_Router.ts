@@ -6,6 +6,7 @@ import {
   addToCart,
   getCartItems,
   deleteCartItem,
+  updateCartItem,
 } from "../controller/client_Controller.js";
 let clientRouter: express.Router = express.Router();
 clientRouter.route("/signUp").post(clientSignUp);
@@ -17,7 +18,8 @@ clientRouter
 
 clientRouter
   .route("/cart/:id")
-  .delete(verifyReCookie_middleware, deleteCartItem);
+  .delete(verifyReCookie_middleware, deleteCartItem)
+  .patch(verifyReCookie_middleware, updateCartItem);
 
 clientRouter
   .route("/:id")

@@ -1,11 +1,9 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import { pool } from "../../../../config/config.js";
 import { Client_Interface } from "../Interface/Client_Interface.js";
 import { Client_signIn_Interface } from "../Interface/Client_signIn_Interface.js";
 import { Encryptor } from "../../utilities/Encryptor.js";
 import { Error_message_Interface } from "../Interface/Error_message_Interface.js";
-import { QueryResult } from "pg";
+
 export class Client {
   private Name: string;
   private Email: string;
@@ -97,7 +95,6 @@ export class Client {
     }
   };
 
-  //___________________________________________________
   public static deleteFromCart = async (
     userid: number,
     productid: number
@@ -113,7 +110,23 @@ export class Client {
     }
   };
 
-  //___________________________________________________
+  public static updateCartItemQuantity = async (
+    userid: number,
+    productid: number,
+    quantity: number
+  ): Promise<Client_Interface | Error_message_Interface> => {
+    try {
+      let query = `UPDATE client_cart_product
+      SET quantity = ${quantity}
+      FROM client_cart
+      WHERE client_cart.client_id = ${userid} and client_cart_product.cart_id = client_cart.id and client_cart_product.product_id = ${productid} returning *;`;
+      let result = await pool.query(query);
+      return result.rows[0];
+    } catch (err) {
+      return { success: false, error: Object(err).detail };
+    }
+  };
+
   public static getCartItems = async (userid: number) => {
     try {
       let query: string = `

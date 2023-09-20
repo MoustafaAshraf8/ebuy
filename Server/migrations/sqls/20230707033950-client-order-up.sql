@@ -1,7 +1,8 @@
 create table client_order
 (
-   id serial primary key,
-   client_id integer,
+   clientorderid serial,
+   clientid integer,
    total_price float default 0.0,
-   constraint client_reference foreign key (client_id) references client (id)
+   constraint clientorder_clientorderid_pk primary key (clientorderid),
+   constraint clientorder_clientid_fk foreign key (clientid) references client (clientid)
 );
