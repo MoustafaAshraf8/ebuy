@@ -1,9 +1,13 @@
 import express, { Request, Response, NextFunction } from "express";
-import { Seller_model } from "../model/Seller_model.js";
+import { Seller } from "../model/Seller.js";
 import { Seller_Interface } from "../Interface/Seller_Interface.js";
 import { Seller_signIn_Interface } from "../Interface/Seller_signIn_Interface.js";
 import { Product_Interface } from "../Interface/Product_Interface.js";
-import { addSeller, rememberSeller } from "../service/seller_Service.js";
+import {
+  sellerSignUp_service,
+  sellerSignIn_service,
+  addProduct_service,
+} from "../service/seller_Service.js";
 
 const sellerSignUp = async (
   req: Request,
@@ -18,8 +22,13 @@ const sellerSignUp = async (
     Address: req.body.address,
   };
 
-  let newSeller = await addSeller(newSellerData);
+  let newSeller = await sellerSignUp_service(newSellerData);
   console.log(newSeller);
+  res.cookie("accessCookie", Object(newSeller[0]).accessToken, {
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000,
+  });
+  res.statusCode = 200;
   res.json(newSeller);
 };
 
@@ -32,7 +41,12 @@ const sellerSignIn = async (
     Email: req.body.email,
     Password: req.body.password,
   };
-  let oldSeller = await rememberSeller(oldSellerData);
+  let oldSeller = await sellerSignIn_service(oldSellerData);
+  res.cookie("accessCookie", Object(oldSeller[0]).accessToken, {
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000,
+  });
+  res.statusCode = 200;
   res.json(oldSeller);
 };
 
@@ -41,15 +55,17 @@ const SellerAddProduct = async (
   res: Response,
   next: NextFunction
 ) => {
+  console.log("----seller controller----");
   let newProduct: Product_Interface = {
     Name: req.body.name,
-    Category: req.body.category,
     Price: req.body.price,
     Quantity: req.body.quantity,
+    Category: req.body.category,
     Description: req.body.description,
   };
-  let seller_id: number = Number(req.headers.id);
-  let result = await Seller_model.addProduct(seller_id, newProduct);
+  let userid = Number(req.headers["user"]);
+  let result: any[] = await addProduct_service(userid, newProduct);
+  res.statusCode = 200;
   res.json(result);
 };
 
@@ -59,10 +75,9 @@ const SellerRemoveProduct = async (
   next: NextFunction
 ) => {
   //to be changed, extract seller_id from jwt
-  let seller_id = Number(req.headers.id);
-  let product_id: number = Number(req.params.id);
-  console.log(`seller: ${seller_id} -- product: ${product_id}`);
-  let result = await Seller_model.removeProduct(seller_id, product_id);
+  let sellerid = Number(req.headers.id);
+  let productid: number = Number(req.params.id);
+  let result = await Seller.removeProduct(productid, sellerid);
   res.json(result);
 };
 

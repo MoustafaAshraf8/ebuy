@@ -2,16 +2,16 @@ import express from "express";
 import {
   getAllProduct,
   getProductById,
-  addProduct,
 } from "../controller/product_Controller.js";
+import { tryCatch } from "../../utilities/tryCatch.js";
 
 let productRouter: express.Router = express.Router();
 
-productRouter.route("/").get(getAllProduct).post(addProduct);
+productRouter.route("/").get(tryCatch(getAllProduct));
 
 productRouter
   .route("/:id")
-  .get(getProductById)
+  .get(tryCatch(getProductById))
   .post((req, res, next): void => {
     let id: number = Number(req.body.id);
     //let id: number = Number(req.params.id);

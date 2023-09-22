@@ -32,6 +32,7 @@ export function verifyReCookie_middleware(
         res.json(error);
       } else {
         req.headers["user"] = decoded.id;
+        console.log(`userid--> ${decoded.id}`);
         next();
       }
     }

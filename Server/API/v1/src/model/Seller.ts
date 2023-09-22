@@ -4,7 +4,10 @@ import { Seller_Interface } from "../Interface/Seller_Interface.js";
 import { Seller_signIn_Interface } from "../Interface/Seller_signIn_Interface.js";
 import { Product } from "./Product.js";
 import { Product_Interface } from "../Interface/Product_Interface.js";
-export class Seller_model {
+import { Seller_query } from "./query/Seller_query.js";
+import { error } from "console";
+import { hash } from "bcrypt";
+export class Seller {
   private Name: string;
   private Email: string;
   private Password: string;
@@ -19,53 +22,49 @@ export class Seller_model {
     this.Address = newSeller.Address;
   }
 
-  public signUp = async (): Promise<object | boolean> => {
+  public signUp = async (): Promise<string> => {
     let hashedPassword = await Encryptor.hashPassword(this.Password);
-    let query = `insert into seller (name, email, password, phone, address) values ('${this.Name}','${this.Email}','${hashedPassword}','${this.Phone}','${this.Address}') returning *;`;
+    let query = Seller_query.signupQuery(
+      this.Name,
+      this.Email,
+      hashedPassword,
+      this.Phone,
+      this.Address
+    );
     try {
       let result = await pool.query(query);
-      return result.rows[0];
+      console.log(JSON.stringify(Object(result)[3].rows));
+      return JSON.stringify(Object(result)[3].rows);
     } catch {
-      return false;
+      console.log(error);
+      throw error;
     }
   };
 
   public static signIn = async (
     oldSeller: Seller_signIn_Interface
-  ): Promise<object | boolean> => {
-    let query = `select * from seller where email='${oldSeller.Email}';`;
-    let arrSeller = await pool.query(query);
+  ): Promise<string> => {
+    let query = Seller_query.signinQuery(oldSeller.Email);
     try {
+      console.log(query);
+      let arrseller = await pool.query(query);
       let success = await Encryptor.verifyPassword(
         oldSeller.Password,
-        await arrSeller.rows[0].password
+        await arrseller.rows[0].person_password
       );
       if (success) {
-        delete arrSeller.rows[0]["password"];
-        return arrSeller.rows[0];
+        return JSON.stringify(arrseller.rows);
       } else {
-        return { msg: "wrong email or password" };
+        throw new Error("wrong cridentials");
       }
-    } catch {
-      return false;
+    } catch (err) {
+      console.log(err);
+      throw new Error("user not found");
     }
   };
 
-  public static addProduct = async (
-    seller_id: number,
-    newProduct: Product_Interface
-  ) => {
-    let product: Product = new Product(newProduct);
-    let default_seller_id: number = 1;
-    let result = await product.addProduct(seller_id);
-    return result;
-  };
-
-  public static removeProduct = async (
-    seller_id: number,
-    product_id: number
-  ) => {
-    let result = await Product.removeProduct(seller_id, product_id);
+  public static removeProduct = async (sellerid: number, productid: number) => {
+    let result = await Product.removeProduct(productid, sellerid);
     return result;
   };
 }

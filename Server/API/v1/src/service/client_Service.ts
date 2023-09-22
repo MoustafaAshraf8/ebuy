@@ -2,16 +2,16 @@ import { Client } from "../model/Client.js";
 import { Client_Interface } from "../Interface/Client_Interface.js";
 import { Client_signIn_Interface } from "../Interface/Client_signIn_Interface.js";
 import { Error_message_Interface } from "../Interface/Error_message_Interface.js";
-import { ClientParser } from "../../utilities/ClientParser.js";
+import { Parser } from "../../utilities/Parser.js";
 import { JWT_Class } from "../../utilities/JWT_Class.js";
 
 const clientSignUp_service = async (
   client: Client_Interface
 ): Promise<any[]> => {
-  let newClient = new Client(client);
-  let clientData = await newClient.signUp();
-  const parsedclient = ClientParser.clientsignup(clientData);
-  let accessToken = JWT_Class.createAccessToken(
+  let newClient: Client = new Client(client);
+  let clientData: string = await newClient.signUp();
+  const parsedclient: any[] = Parser.clientParser(clientData);
+  let accessToken: string = JWT_Class.createAccessToken(
     String(Object(parsedclient).person_id)
   );
   parsedclient[0].accessToken = accessToken;
@@ -20,16 +20,16 @@ const clientSignUp_service = async (
 };
 
 const clientLogIn_service = async (
-  client: Client_signIn_Interface
+  oldClient: Client_signIn_Interface
 ): Promise<any[]> => {
-  const clientData = await Client.signIn(client);
-  const parsedclient = ClientParser.clientsignup(clientData);
+  const clientData = await Client.signIn(oldClient);
+  const parsedClient = Parser.clientParser(clientData);
   let accessToken = JWT_Class.createAccessToken(
-    String(Object(parsedclient).person_id)
+    String(Object(parsedClient).person_id)
   );
-  parsedclient[0].accessToken = accessToken;
-  console.log(parsedclient);
-  return parsedclient;
+  parsedClient[0].accessToken = accessToken;
+  console.log(parsedClient);
+  return parsedClient;
 };
 
 // const authenticateClient = async (
