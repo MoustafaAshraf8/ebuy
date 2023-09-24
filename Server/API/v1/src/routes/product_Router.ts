@@ -2,6 +2,7 @@ import express from "express";
 import {
   getAllProduct,
   getProductById,
+  getProductImage,
 } from "../controller/product_Controller.js";
 import { tryCatch } from "../../utilities/tryCatch.js";
 
@@ -19,5 +20,7 @@ productRouter
     res.statusCode = 600;
     res.json({ msg: `error, cannot post product by id: ${id}` });
   });
+
+productRouter.route("/image/:id").get(tryCatch(getProductImage));
 
 export { productRouter };

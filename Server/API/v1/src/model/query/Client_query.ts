@@ -7,6 +7,7 @@ export class Client_query {
     address: String
   ): string {
     const query = `
+    begin;
    --person
    insert into person
    (name,email,password,phone,address)
@@ -42,6 +43,7 @@ export class Client_query {
    person inner join client
    on person.id=client.clientid
    where person.id=currval(pg_get_serial_sequence('person','id'));
+   commit;
    `;
 
     return query;

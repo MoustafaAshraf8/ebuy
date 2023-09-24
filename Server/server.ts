@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import { versionControle } from "./utilities/versionControle.js";
 import { v1router } from "./API/v1/v1router.js";
 import { errorHandler } from "./middleware/errorHandler.js";
@@ -27,6 +27,10 @@ app.use(versionControle);
 
 //routing
 app.use("/v1", v1router);
+// app.use("/image", (req: Request, res: Response, next: NextFunction) => {
+//   //res.json({ msg: "test" });
+//   res.sendFile("D:/00-GitHub/Ebuy/Server/db_design.jpg");
+// });
 
 //error handler
 app.use(errorHandler);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useReducer } from "react";
 import useDelete from "../../Shared/useDelete";
+import usePatch from "../../Shared/usePatch";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Product_image_template from "../../reuseable_components/Product_image_template";
 import Button_template from "../../reuseable_components/Button_template";
@@ -10,33 +11,44 @@ const CartItem = (props) => {
   };
   let elementClassName = "mx-0 mx-sm-2 mx-md-5";
 
-  const [submit, setSubmit] = useState(false);
-  console.log("submit: ", submit);
+  const [remove, setRemove] = useState(false);
+  const [modify, setModify] = useState(false);
 
-  let reducer = (Quantity, action) => {
-    if (action.type == "increment") return { number: Quantity.number + 1 };
-    else if (action.type == "decrement") return { number: Quantity.number - 1 };
+  let reducer = (quantity, action) => {
+    if (action.type == "increment") return { number: quantity.number + 1 };
+    else if (action.type == "decrement")
+      return { number: quantity.number >= 2 ? quantity.number - 1 : 1 };
     else if (action.type == "delete") return { number: 0 };
   };
 
-  let [Quatity, dispatcher] = useReducer(reducer, { number: 1 });
+  let [quantity, dispatcher] = useReducer(reducer, { number: 1 });
 
   let incrementItem = () => {
     dispatcher({ type: "increment" });
+    setModify(true);
   };
   let decrementItem = () => {
     dispatcher({ type: "decrement" });
+    setModify(true);
   };
   let deleteItem = () => {
-    //dispatcher({ type: "delete" });
     console.log("test");
-    setSubmit(true);
+    setRemove(true);
   };
 
   let { data, loding, error } = useDelete(
     `http://localhost:8080/client/cart/${props.id}`,
-    submit
+    remove
   );
+
+  let { data2, loading2, error2 } = usePatch(
+    `http://localhost:8080/client/cart/${props.id}`,
+    modify,
+    quantity
+  );
+  //setModify(false);
+
+  if (data) return;
 
   return (
     <div
@@ -61,7 +73,7 @@ const CartItem = (props) => {
           onClick={decrementItem}
         />
       </div>
-      <div className={elementClassName}>{Quatity.number}</div>
+      <div className={elementClassName}>{quantity.number}</div>
       <div className={elementClassName}>
         <Button_template
           text="+"

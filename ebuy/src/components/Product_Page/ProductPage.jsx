@@ -8,19 +8,28 @@ import LoadingSpinner_template from "../reuseable_components/LoadingSpinner_temp
 import Error_template from "../reuseable_components/Error_template";
 import useFetch from "../Shared/useFetch";
 import usePost from "../Shared/usePost";
+import ProductComment from "./components/ProductComment";
 
 const ProductPage = () => {
   let navBar_height = "10vh";
   let productPageStyle = {
-    minHeight: "calc(100vh - 10vh)", //10vh : height of navbar
-    border: "1px solid red",
+    //minHeight: "calc(100vh - 10vh)", //10vh : height of navbar
+    border: "0px solid red",
   };
   let productPageContentStyle = {
     //  minHeight: "50vh",
     border: "0px solid green",
   };
 
+  const elementClassName = "mb-2";
+
+  const titleClassName = "me-3";
   let product_id = window.location.href.split("/").at(-1);
+
+  const loadDefaultImage = (e) => {
+    console.log("%%%%%%%%%%%%%%%%%%%%%%%%");
+    e.target.src = "http://localhost:8080/product/image/0";
+  };
 
   let [Submit, setSubmit] = useState(false);
   let [remove, setRemove] = useState(false);
@@ -54,33 +63,59 @@ const ProductPage = () => {
 
   return (
     <div
-      className="container-fluid d-md-flex flex-row justify-content-between align-items-start p-5 pt-4 m-0"
-      style={productPageStyle}
+      className="container-fluid d-flex flex-column justify-content-start"
+      style={{ border: "0px solid yellow" }}
     >
       <div
-        className="container-fluid d-flex flex-row justify-content-center align-items-start p-2 m-1"
-        style={productPageContentStyle}
+        className=" d-md-flex flex-row justify-content-between align-items-start p-5 pb-0 pt-4 m-0"
+        style={productPageStyle}
       >
-        <ProductImage src="\Image\product_placeholder.png" />
-      </div>
-
-      <div
-        className="container-fluid d-flex flex-column justify-content-start align-items-start p-2 m-1"
-        style={productPageContentStyle}
-      >
-        <ProductData {...product} key={product.id} />
-        <div className="container-fluid p-0">
-          <Button_template
-            onClick={clicked}
-            text={data2 ? <TaskAltIcon /> : <AddShoppingCartIcon />}
-            style={{ backgroundColor: "rgb(0,128,0)", border: "none" }}
+        <div
+          className="container-fluid d-flex flex-row justify-content-center align-items-start p-2 m-1"
+          style={productPageContentStyle}
+        >
+          <ProductImage
+            src={product[0].data.product_image}
+            onError={(e) => loadDefaultImage(e)}
           />
         </div>
+
+        <div
+          className="container-fluid d-flex flex-column justify-content-start align-items-start p-2 m-1"
+          style={productPageContentStyle}
+        >
+          <ProductData
+            {...product[0].data}
+            key={product[0].data.product_productid}
+          />
+          <div className="container-fluid p-0">
+            <Button_template
+              onClick={clicked}
+              text={data2 ? <TaskAltIcon /> : <AddShoppingCartIcon />}
+              style={{ backgroundColor: "rgb(0,128,0)", border: "none" }}
+            />
+          </div>
+        </div>
+      </div>
+      <div className={elementClassName} style={{ textAlign: "left" }}>
+        <div>
+          <h4 className={titleClassName}>Description: </h4>
+        </div>
+        <div>
+          <h6>{product[0].data.product_description}</h6>
+        </div>
+      </div>
+      <hr />
+      <div className={elementClassName} style={{ textAlign: "left" }}>
+        <div>
+          <h4 className={titleClassName}>Comments: </h4>
+        </div>
+        {product[0].comment.map((comment) => (
+          <ProductComment {...comment} />
+        ))}
       </div>
     </div>
   );
-
-  return <div></div>;
 };
 
 export default ProductPage;

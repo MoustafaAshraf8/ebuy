@@ -12,7 +12,13 @@ const CardData = ({ product }) => {
     width: "100%",
     height: "100%",
   };
-  let productPath = `/product/${product.id}`;
+
+  const loadDefaultImage = (e) => {
+    console.log("%%%%%%%%%%%%%%%%%%%%%%%%");
+    e.target.src = "http://localhost:8080/product/image/0";
+  };
+
+  let productPath = `/product/${product.data.product_productid}`;
 
   let [submit, setSubmit] = useState(false);
 
@@ -43,18 +49,22 @@ const CardData = ({ product }) => {
         href={productPath}
         anchorStyle={{ height: "60%", width: "100%" }}
         //src={product.imgURL}
-        src="./Image/product_placeholder.png"
+        //src="./Image/product_placeholder.png"
+        src={product.data.product_image}
+        onError={(e) => loadDefaultImage(e)}
         imgStyle={imgStyle}
       />
       <div className="card-body" style={{ height: "15%" }}>
-        <p className="card-text">{product.name}</p>
+        <p className="card-text">{product.data.product_name}</p>
       </div>
       <div
         className="d-block d-sm-flex justify-content-between p-2 align-items-center"
         style={{ height: "25%" }}
       >
         <div>
-          <div className="align-items-start">Price: {product.price}$</div>
+          <div className="align-items-start">
+            Price: {product.data.product_price}$
+          </div>
         </div>
         <div>
           <span

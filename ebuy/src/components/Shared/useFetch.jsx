@@ -12,10 +12,14 @@ function useFetch(url) {
     axios
       .get(url, { withCredentials: true }, { signal: abortController.signal })
       .then((response) => {
-        isMounted && setData(response.data);
+        if (response.status == 200) {
+          isMounted && setData(response.data);
+        } else {
+          throw new Error(`statusCode: ${response.msg}`);
+        }
       })
       .catch((err) => {
-        console.log(err.name);
+        //console.log(err.name);
         if (!err.name == "AbortError") {
           setError(true);
         }

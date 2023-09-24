@@ -45,8 +45,10 @@ export class Parser {
   }
 
   public static productParser(product: string): any[] {
+    if (product.length == 2) {
+      throw Error("product not found");
+    }
     const parsed = JSON.parse(product);
-    console.log(typeof parsed[0].productreview_comment_heading);
     let result = [];
 
     let commentMap = new Map<number, Comment_interface[]>();
@@ -91,6 +93,7 @@ export class Parser {
             product_discount: parsed[i].product_discount,
             product_category: parsed[i].product_category,
             product_description: parsed[i].product_description,
+            product_image: `http://localhost:8080/product/image/${parsed[i].product_productid}`,
           },
 
           seller: {
