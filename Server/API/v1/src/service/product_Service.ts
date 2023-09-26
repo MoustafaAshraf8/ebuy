@@ -15,11 +15,13 @@ const getProductById_service = async (productid: number) => {
 };
 
 const getProductImage_service = (productid: number): string => {
+  const defaultImagePath: string = `D:/00-GitHub/Ebuy/Server/API/v1/src/asset/product/defaultProductImage/defaultProductImage.jpg`;
   const imagePath: string = `D:/00-GitHub/Ebuy/Server/API/v1/src/asset/product/${productid}/${productid}.jpg`;
   if (fs.existsSync(imagePath)) {
     return imagePath;
   } else {
-    throw Error(`image of product: ${productid} is not found`);
+    //throw Error(`image of product: ${productid} is not found`);
+    return defaultImagePath;
   }
 };
 

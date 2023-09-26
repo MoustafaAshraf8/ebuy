@@ -31,7 +31,8 @@ export class Client {
     );
     try {
       let result = await pool.query(query);
-      return JSON.stringify(Object(result)[4].rows);
+      console.log(result);
+      return JSON.stringify(Object(result)[5].rows);
     } catch (err) {
       console.log(err);
       throw err;

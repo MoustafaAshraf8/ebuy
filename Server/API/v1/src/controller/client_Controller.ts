@@ -24,6 +24,8 @@ const clientSignUp = async (
     Address: req.body.address,
   };
 
+  console.log(newClientData);
+
   let result = await clientSignUp_service(newClientData);
   res.cookie("accessCookie", Object(result[0]).accessToken, {
     httpOnly: true,
