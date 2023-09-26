@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import Product_image_template from "../../reuseable_components/Product_image_template";
 import Button_template from "../../reuseable_components/Button_template";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import LockIcon from "@mui/icons-material/Lock";
-import LoadingSpinner_template from "../../reuseable_components/LoadingSpinner_template";
-import Error_template from "../../reuseable_components/Error_template";
 import usePost from "../../Shared/usePost";
 const CardData = ({ product }) => {
   let imgStyle = {

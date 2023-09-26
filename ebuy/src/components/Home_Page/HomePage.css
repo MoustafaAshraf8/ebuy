@@ -4,6 +4,6 @@
  } */
 
 .home {
-  border: 3px solid green;
+  border: 0px solid green;
   height: calc(100vh - 60px);
 }

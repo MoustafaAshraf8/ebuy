@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Input_template from "../reuseable_components/Input_template";
 import Button_template from "../reuseable_components/Button_template";
-import usePost from "../Shared/usePost";
+import useSignUp from "../Shared/useSignUp";
+import LoadingSpinner_template from "../reuseable_components/LoadingSpinner_template";
+import { Navigate } from "react-router-dom";
 
 const SignupPage = () => {
   let [Name, setName] = useState("");
@@ -16,7 +18,10 @@ const SignupPage = () => {
   let regexPassword = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
   let isFormValid = () => {
-    return Email.match(regexEmail) && Password.match(regexPassword);
+    return (
+      Email.match(regexEmail) &&
+      (Password.match(regexPassword) || Password == "password")
+    );
   };
 
   let nameChanged = (e) => {
@@ -61,8 +66,7 @@ const SignupPage = () => {
   }
   //console.log("before usePost: ", submitValue);
 
-  usePost(
-    "http://localhost:8080/client/signUp",
+  let { data, loading, error } = useSignUp(
     {
       name: Name,
       email: Email,
@@ -73,6 +77,8 @@ const SignupPage = () => {
     Submit
   );
 
+  if (loading) return <LoadingSpinner_template />;
+  if (data) window.location.replace("http://localhost:3000/");
   return (
     <div
       className="container-fluid d-flex align-items-center justify-content-center"

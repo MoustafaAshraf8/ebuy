@@ -13,13 +13,11 @@ const ProductData = (props) => {
       </div>
       <div className={elementClassName}>
         <h4 className={titleClassName}>Price: </h4>
-        <h5>
-          {props.product_price} <sup>egp</sup>
-        </h5>
+        <h5>{props.product_price} $</h5>
       </div>
       <div className={elementClassName}>
         <h4 className={titleClassName}>discount: </h4>
-        <h5>{props.product_discount}%</h5>
+        <h5>{props.product_discount} %</h5>
       </div>
       <div className={elementClassName}>
         <h4 className={titleClassName}>category: </h4>
