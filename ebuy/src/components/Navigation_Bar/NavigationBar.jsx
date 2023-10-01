@@ -3,13 +3,11 @@ import { useState } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import HomeSharpIcon from "@mui/icons-material/HomeSharp";
 import LoginIcon from "@mui/icons-material/Login";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import ThunderstormIcon from "@mui/icons-material/Thunderstorm";
 
 import BrandLogo from "./components/BrandLogo";
 import Categories from "./components/Categories";
 import SearchBar from "./components/SearchBar";
-import { height } from "@mui/system";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 
 const goToCart = () => {
   console.log("hello cart");
@@ -20,6 +18,14 @@ const iconFontStyle = {
 };
 
 const NavigationBar = () => {
+  const user = useSelector((state) => {
+    console.log("!!!!!!!!!!!!!!!!!!!!");
+    console.log(state.user.value);
+    //setX("x");
+    console.log("!!!!!!!!!!!!!!!!!!!!");
+    return state.user.value;
+  });
+
   return (
     <nav
       className="container-fluid nav justify-content-left navbar navbar-expand-md navbarscroll p-3 m-0"

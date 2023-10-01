@@ -9,6 +9,7 @@ import Error_template from "../reuseable_components/Error_template";
 import useFetch from "../Shared/useFetch";
 import usePost from "../Shared/usePost";
 import ProductComment from "./components/ProductComment";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 
 const ProductPage = () => {
   let navBar_height = "10vh";
@@ -57,6 +58,14 @@ const ProductPage = () => {
     Submit
   );
 
+  const user = useSelector((state) => {
+    console.log("-----------------");
+    console.log(state.user.value);
+    //setX("x");
+    console.log("-----------------");
+    return state.user.value;
+  });
+
   if (loading) return <LoadingSpinner_template />;
 
   if (error || product == null) return <Error_template />;
@@ -70,6 +79,9 @@ const ProductPage = () => {
         className=" d-md-flex flex-row justify-content-between align-items-start p-5 pb-0 pt-4 m-0"
         style={productPageStyle}
       >
+        <div>{user.person_id}</div>
+        <div>{user.person_name}</div>
+        <div>{user.person_email}</div>
         <div
           className="container-fluid d-flex flex-row justify-content-center align-items-start p-2 m-1"
           style={productPageContentStyle}

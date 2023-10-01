@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import Input_template from "../reuseable_components/Input_template";
 import OR from "../reuseable_components/OR";
 import Button_template from "../reuseable_components/Button_template";
-import LockIcon from "@mui/icons-material/Lock";
-import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
-
-import usePost from "../Shared/usePost";
+import { useDispatch } from "react-redux";
+import useSignIn from "../Shared/useSignIn";
+import { signIn } from "../../features/user";
 
 const LoginPage = () => {
   let [Email, setEmail] = useState("");
@@ -29,14 +28,32 @@ const LoginPage = () => {
     setSubmit(true);
   };
 
-  usePost(
-    "http://localhost:8080/client/signIn",
+  const { data, loading, error } = useSignIn(
     {
       email: Email,
-      password: "testpassword",
+      password: Password,
     },
     Submit
   );
+
+  const dispatch = useDispatch();
+  if (data) {
+    console.log("&*&*&*&*&*&*&**");
+    console.log(data[0]);
+    console.log("&*&*&*&*&*&*&**");
+    dispatch(
+      signIn({
+        registered: true,
+        person_id: data[0].person_id,
+        person_name: data[0].person_name,
+        person_email: data[0].person_email,
+        person_phone: data[0].person_phone,
+        person_address: data[0].person_address,
+        accessToken: data[0].accessToken,
+      })
+    );
+    window.location.replace("http://localhost:3000/");
+  }
 
   return (
     <div

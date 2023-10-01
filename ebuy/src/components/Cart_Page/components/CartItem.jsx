@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useReducer } from "react";
-import useDelete from "../../Shared/useDelete";
-import usePatch from "../../Shared/usePatch";
+import useDeleteCartItem from "../../Shared/useDeleteCartItem";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Product_image_template from "../../reuseable_components/Product_image_template";
 import Button_template from "../../reuseable_components/Button_template";
+import usePatchCartItem from "../../Shared/usePatchCartItem";
 const CartItem = (props) => {
   let itemStyle = {
     border: "0px solid orange",
   };
-  let elementClassName = "mx-0 mx-sm-2 mx-md-5";
+  let elementClassName = "mx-0 mx-sm-2 mx-md-4";
 
   const [remove, setRemove] = useState(false);
   const [modify, setModify] = useState(false);
@@ -21,7 +21,9 @@ const CartItem = (props) => {
     else if (action.type == "delete") return { number: 0 };
   };
 
-  let [quantity, dispatcher] = useReducer(reducer, { number: 1 });
+  let [quantity, dispatcher] = useReducer(reducer, {
+    number: props.product_quantity,
+  });
 
   let incrementItem = () => {
     dispatcher({ type: "increment" });
@@ -32,17 +34,17 @@ const CartItem = (props) => {
     setModify(true);
   };
   let deleteItem = () => {
-    console.log("test");
+    console.log("item delete fn");
     setRemove(true);
   };
 
-  let { data, loding, error } = useDelete(
-    `http://localhost:8080/client/cart/${props.id}`,
+  let { data, loding, error } = useDeleteCartItem(
+    props.product_productid,
     remove
   );
 
-  let { data2, loading2, error2 } = usePatch(
-    `http://localhost:8080/client/cart/${props.id}`,
+  let { data2, loading2, error2 } = usePatchCartItem(
+    props.product_productid,
     modify,
     quantity
   );
@@ -50,22 +52,23 @@ const CartItem = (props) => {
 
   if (data) return;
 
+  if (data2) setModify(false);
+
   return (
     <div
-      className="container-fluid d-flex flex-row justify-content-center align-items-center p-0 mb-3"
+      className="container-fluid d-sm-flex justify-content-center align-items-center p-0 mb-3"
       style={itemStyle}
     >
       <div className={elementClassName}>
         <Product_image_template
           href="#"
           anchorStyle={{ height: "100px", width: "100px" }}
-          src="\Image\product_placeholder.png"
+          src={props.product_image}
           imgStyle={{ height: "100px", width: "100px" }}
         />
       </div>
-      <div className={elementClassName}>{props.name}</div>
-      <div className={elementClassName}>{props.price}</div>
-      <div className={elementClassName}>id: {props.id}</div>
+      <div className={elementClassName}>{props.product_name}</div>
+      <div className={elementClassName}>{props.product_price} $</div>
       <div className={elementClassName}>
         <Button_template
           text="-"

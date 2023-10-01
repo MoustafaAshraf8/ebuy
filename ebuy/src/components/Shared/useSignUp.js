@@ -18,10 +18,30 @@ function useSignUp(postBody, Submit) {
     setLoading(true);
     axios
       .post(url, postBody, { withCredentials: true })
-      .then((response) => {
-        setData(response.data);
-        console.log(response.data);
-        dispatch(signIn(response.data));
+      .then(async (response) => {
+        const res = JSON.parse(JSON.stringify(response.data));
+        let information = {
+          registered: true,
+          person_id: res[0].person_id,
+          person_name: res[0].person_name,
+          person_email: res[0].person_email,
+          person_phone: res[0].person_phone,
+          person_address: res[0].person_address,
+          accessToken: res[0].accessToken,
+        };
+        //   dispatch(
+        //     signIn({
+        //       registered: true,
+        //       person_id: res[0].person_id,
+        //       person_name: res[0].person_name,
+        //       person_email: res[0].person_email,
+        //       person_phone: res[0].person_phone,
+        //       person_address: res[0].person_address,
+        //       accessToken: res[0].accessToken,
+        //     })
+        //   );
+        console.log(res);
+        setData(res);
       })
       .catch((err) => {
         setError(err);
