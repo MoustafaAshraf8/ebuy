@@ -1,4 +1,4 @@
-import { pool } from "../../../../config/config.js";
+import { pool } from "../../../config/config.js";
 import { Encryptor } from "../../utilities/Encryptor.js";
 import { Seller_Interface } from "../Interface/Seller_Interface.js";
 import { Seller_signIn_Interface } from "../Interface/Seller_signIn_Interface.js";

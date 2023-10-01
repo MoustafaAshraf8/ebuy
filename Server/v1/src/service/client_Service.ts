@@ -1,7 +1,6 @@
 import { Client } from "../model/Client.js";
 import { Client_Interface } from "../Interface/Client_Interface.js";
 import { Client_signIn_Interface } from "../Interface/Client_signIn_Interface.js";
-import { Error_message_Interface } from "../Interface/Error_message_Interface.js";
 import { Parser } from "../../utilities/Parser.js";
 import { JWT_Class } from "../../utilities/JWT_Class.js";
 
@@ -25,60 +24,54 @@ const clientLogIn_service = async (
   const clientData = await Client.signIn(oldClient);
   const parsedClient = Parser.clientParser(clientData);
   let accessToken = JWT_Class.createAccessToken(
-    String(Object(parsedClient).person_id)
+    String(Object(parsedClient[0]).person_id)
   );
   parsedClient[0].accessToken = accessToken;
   console.log(parsedClient);
   return parsedClient;
 };
 
-// const authenticateClient = async (
-//   client: Client_signIn_Interface
-// ): Promise<Client_Interface | Error_message_Interface> => {
-//   //   let newClient = new Client(client);
-//   //   let clientData = await newClient.signUp();
-//   //   console.log(clientData);
-//   //   return clientData;
+const getCartItems_service = async (clientid: number) => {
+  const result = await Client.getCartItems(clientid);
+  const parsedCartItems = Parser.cartItemsParser(result);
+  return parsedCartItems;
+};
 
-//   let oldClient = await Client.signIn(client);
-//   return oldClient;
-// };
-
-const addToClientCart = async (
-  userid: number,
+const addToCart_service = async (
+  clientid: number,
   productid: number,
   quantity: number
 ) => {
-  let result = await Client.addToCart(userid, productid, quantity);
-  return result;
+  let result: string = await Client.addToCart(clientid, productid, quantity);
+  return;
+  //return result;
 };
 const deleteFromClientCart_service = async (
-  userid: number,
+  clientid: number,
   productid: number
 ) => {
-  let result = await Client.deleteFromCart(userid, productid);
-  return result;
-};
-
-const getCartItems_service = async (userid: number) => {
-  let result = await Client.getCartItems(userid);
-  return result;
+  let result = await Client.deleteFromCart(clientid, productid);
+  return;
 };
 
 const updateCartItem_service = async (
-  userid: number,
+  clientid: number,
   productid: number,
   quantity: number
 ) => {
-  let result = await Client.updateCartItemQuantity(userid, productid, quantity);
-  return result;
+  let result = await Client.updateCartItemQuantity(
+    clientid,
+    productid,
+    quantity
+  );
+  return;
 };
 
 export {
   clientSignUp_service,
   clientLogIn_service,
   //   authenticateClient,
-  addToClientCart,
+  addToCart_service,
   getCartItems_service,
   deleteFromClientCart_service,
   updateCartItem_service,

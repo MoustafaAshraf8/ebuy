@@ -1,6 +1,8 @@
 import { Parser } from "../../utilities/Parser.js";
 import { Product } from "../model/Product.js";
 import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const getAllProduct_service = async () => {
   const allProductData = await Product.getAllProduct();
@@ -15,12 +17,20 @@ const getProductById_service = async (productid: number) => {
 };
 
 const getProductImage_service = (productid: number): string => {
-  const defaultImagePath: string = `D:/00-GitHub/Ebuy/Server/API/v1/src/asset/product/defaultProductImage/defaultProductImage.jpg`;
-  const imagePath: string = `D:/00-GitHub/Ebuy/Server/API/v1/src/asset/product/${productid}/${productid}.jpg`;
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+
+  const defaultImagePath: string = path.join(
+    __dirname,
+    "../asset/product/defaultProductImage/defaultProductImage.jpg"
+  );
+  const imagePath: string = path.join(
+    __dirname,
+    `../asset/product/${productid}/${productid}.jpg`
+  );
   if (fs.existsSync(imagePath)) {
     return imagePath;
   } else {
-    //throw Error(`image of product: ${productid} is not found`);
     return defaultImagePath;
   }
 };

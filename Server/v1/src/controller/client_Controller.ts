@@ -6,10 +6,8 @@ import { clientSignUp_service } from "../service/client_Service.js";
 import { clientLogIn_service } from "../service/client_Service.js";
 import { getCartItems_service } from "../service/client_Service.js";
 import { updateCartItem_service } from "../service/client_Service.js";
-import { addToClientCart } from "../service/client_Service.js";
+import { addToCart_service } from "../service/client_Service.js";
 import { deleteFromClientCart_service } from "../service/client_Service.js";
-import { JWT_Class } from "../../utilities/JWT_Class.js";
-import { tryCatch } from "../../utilities/tryCatch.js";
 
 const clientSignUp = async (
   req: Request,
@@ -56,13 +54,13 @@ const clientSignIn = async (
 };
 
 const addToCart = async (req: Request, res: Response, next: NextFunction) => {
-  let userid = req.headers["user"];
-  let productid = req.body.productid;
-  let quantity = req.body.quantity;
-  let result: Client_Interface | Error_message_Interface =
-    await addToClientCart(Number(userid), Number(productid), Number(quantity));
-  //res.statusCode = !result.success? ? 403 : 200;
-  res.json(result);
+  let clientid = Number(req.headers["user"]);
+  let productid = Number(req.body.productid);
+  let quantity = Number(req.body.quantity) ? Number(req.body.quantity) : 1;
+  console.log(clientid, productid, quantity);
+  let result = await addToCart_service(clientid, productid, quantity);
+  res.statusCode = 200;
+  res.end();
 };
 
 const getCartItems = async (
@@ -82,11 +80,13 @@ const deleteCartItem = async (
 ) => {
   let userid = req.headers["user"];
   let productid = req.url.split("/").at(-1);
+  console.log(userid, req.url, productid);
   let result = await deleteFromClientCart_service(
     Number(userid),
     Number(productid)
   );
-  res.json(result);
+  res.statusCode = 200;
+  res.end();
 };
 
 const updateCartItem = async (
@@ -94,15 +94,19 @@ const updateCartItem = async (
   res: Response,
   next: NextFunction
 ) => {
-  let userid = req.headers["user"];
+  let clientid = req.headers["user"];
   let productid = req.url.split("/").at(-1);
   let quantity = req.body.quantity;
+  console.log(req.body);
+  console.log(req.body.quantity);
+  console.log(clientid, productid, quantity);
   let result = await updateCartItem_service(
-    Number(userid),
+    Number(clientid),
     Number(productid),
     Number(quantity)
   );
-  res.json(result);
+  res.statusCode = 200;
+  res.end();
 };
 
 export {

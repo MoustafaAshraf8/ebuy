@@ -1,6 +1,6 @@
 import express, { Application, Request, Response, NextFunction } from "express";
 import { versionControle } from "./utilities/versionControle.js";
-import { v1router } from "./API/v1/v1router.js";
+import { v1router } from "./v1/v1router.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import bodyparser from "body-parser";
 import cors from "cors";

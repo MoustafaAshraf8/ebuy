@@ -1,4 +1,4 @@
-import { pool } from "../../../../config/config.js";
+import { pool } from "../../../config/config.js";
 import { Client_Interface } from "../Interface/Client_Interface.js";
 import { Client_signIn_Interface } from "../Interface/Client_signIn_Interface.js";
 import { Client_query } from "./query/Client_query.js";
@@ -59,68 +59,64 @@ export class Client {
     }
   };
 
+  public static getCartItems = async (clientid: number) => {
+    try {
+      let query: string = Client_query.getCartItems_query(clientid);
+      let result = await pool.query(query);
+      return JSON.stringify(result.rows);
+    } catch (err) {
+      throw err;
+    }
+  };
+
   public static addToCart = async (
-    userid: number,
+    clientid: number,
     productid: number,
     quantity: number
-  ): Promise<Client_Interface | Error_message_Interface> => {
+  ): Promise<string> => {
     try {
-      let query = `
-      insert into client_cart_product (cart_id, product_id, quantity)
-         select id, ${productid}, ${quantity}
-            from client_cart
-            where client_id=${userid} returning *;`;
+      let query: string = Client_query.addToCart_query(
+        clientid,
+        productid,
+        quantity
+      );
       let result = await pool.query(query);
-      return result.rows[0];
+      console.log("a7a");
+      return JSON.stringify(result.rows);
     } catch (err) {
-      return { success: false, error: Object(err).detail };
+      console.log(err);
+      throw err;
     }
   };
 
   public static deleteFromCart = async (
-    userid: number,
+    clientid: number,
     productid: number
-  ): Promise<Client_Interface | Error_message_Interface> => {
+  ): Promise<string> => {
     try {
-      let query = `delete from client_cart_product
-      using (select * from client_cart where client_cart.client_id=${userid}) result
-      where result.id=client_cart_product.cart_id and client_cart_product.product_id=${productid} returning *;`;
+      let query = Client_query.deleteFromCart_query(clientid, productid);
       let result = await pool.query(query);
-      return result.rows[0];
+      return JSON.stringify(result.rows);
     } catch (err) {
-      return { success: false, error: Object(err).detail };
+      throw err;
     }
   };
 
   public static updateCartItemQuantity = async (
-    userid: number,
+    clientid: number,
     productid: number,
     quantity: number
-  ): Promise<Client_Interface | Error_message_Interface> => {
+  ): Promise<string> => {
     try {
-      let query = `UPDATE client_cart_product
-      SET quantity = ${quantity}
-      FROM client_cart
-      WHERE client_cart.client_id = ${userid} and client_cart_product.cart_id = client_cart.id and client_cart_product.product_id = ${productid} returning *;`;
+      let query = Client_query.updateCartItem_query(
+        clientid,
+        productid,
+        quantity
+      );
       let result = await pool.query(query);
-      return result.rows[0];
+      return JSON.stringify(result.rows);
     } catch (err) {
-      return { success: false, error: Object(err).detail };
-    }
-  };
-
-  public static getCartItems = async (userid: number) => {
-    try {
-      let query: string = `
-        SELECT product.id, product.name, product.price, product.quantity, product.discount, product.category, product.description
-      FROM (
-      (client_cart INNER JOIN client_cart_product ON client_cart.id = client_cart_product.cart_id)
-      INNER JOIN product ON client_cart_product.product_id = product.id)
-      where client_cart.client_id=${userid};`;
-      let result = await pool.query(query);
-      return result.rows;
-    } catch (err) {
-      return { success: false, error: Object(err).detail };
+      throw err;
     }
   };
 }

@@ -1,15 +1,4 @@
-interface Comment_interface {
-  productreview_comment_heading: string;
-  productreview_comment_body: string;
-  productreview_clientid: number;
-  productreview_rating: number;
-  client_id: number;
-  client_name: string;
-  client_email: string;
-  client_phone: string;
-  client_address: string;
-}
-
+import { ProductComment_interface } from "../src/Interface/ProductComment_Interface.js";
 export class Parser {
   public static clientParser(client: string): any[] {
     const parsed = JSON.parse(client);
@@ -51,12 +40,12 @@ export class Parser {
     const parsed = JSON.parse(product);
     let result = [];
 
-    let commentMap = new Map<number, Comment_interface[]>();
+    let commentMap = new Map<number, ProductComment_interface[]>();
     let visitedMap = new Map<number, boolean>();
     for (let i = 0; i < parsed.length; i++) {
       const productid = Number(parsed[i].product_productid);
-      //console.log(productid);
-      const comment: Comment_interface = {
+
+      const comment: ProductComment_interface = {
         productreview_comment_heading: parsed[i].productreview_comment_heading,
         productreview_comment_body: parsed[i].productreview_comment_body,
         productreview_clientid: parsed[i].productreview_clientid,
@@ -69,9 +58,14 @@ export class Parser {
       };
 
       if (commentMap.has(productid) && comment.productreview_clientid != null) {
-        let newarr = commentMap.get(productid) as Array<Comment_interface>;
+        let newarr = commentMap.get(
+          productid
+        ) as Array<ProductComment_interface>;
         newarr.push(comment);
-        commentMap.set(Number(productid), newarr as Array<Comment_interface>);
+        commentMap.set(
+          Number(productid),
+          newarr as Array<ProductComment_interface>
+        );
       } else if (comment.productreview_clientid != null) {
         commentMap.set(Number(productid), [comment]);
       }
@@ -111,6 +105,23 @@ export class Parser {
       }
     }
 
+    return result;
+  }
+
+  public static cartItemsParser(cartItems: string) {
+    const parsed = JSON.parse(cartItems);
+    let result = [];
+
+    for (let i = 0; i < parsed.length; i++) {
+      let item = {
+        product_productid: parsed[i].product_productid,
+        product_name: parsed[i].product_name,
+        product_price: parsed[i].product_price,
+        product_quantity: parsed[i].product_quantity,
+        product_image: `http://localhost:8080/product/image/${parsed[i].product_productid}`,
+      };
+      result.push(item);
+    }
     return result;
   }
 }

@@ -15,8 +15,8 @@ clientRouter.route("/signUp").post(tryCatch(clientSignUp));
 clientRouter.route("/signIn").post(tryCatch(clientSignIn));
 clientRouter
   .route("/cart")
-  .post(verifyReCookie_middleware, addToCart)
-  .get(verifyReCookie_middleware, getCartItems);
+  .get(verifyReCookie_middleware, tryCatch(getCartItems))
+  .post(verifyReCookie_middleware, tryCatch(addToCart));
 
 clientRouter
   .route("/cart/:id")

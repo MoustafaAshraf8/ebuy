@@ -1,4 +1,4 @@
-import { pool } from "../../../../config/config.js";
+import { pool } from "../../../config/config.js";
 import { Product_Interface } from "../Interface/Product_Interface.js";
 import { Product_query } from "./query/Product_query.js";
 export class Product {
