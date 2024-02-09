@@ -51,4 +51,9 @@ const removeProduct_service = async (
   return result;
 };
 
-export { sellerSignUp_service, sellerSignIn_service, addProduct_service };
+export {
+  sellerSignUp_service,
+  sellerSignIn_service,
+  addProduct_service,
+  removeProduct_service,
+};

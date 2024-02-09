@@ -7,6 +7,7 @@ import {
   sellerSignUp_service,
   sellerSignIn_service,
   addProduct_service,
+  removeProduct_service,
 } from "../service/seller_Service.js";
 
 const sellerSignUp = async (
@@ -77,7 +78,7 @@ const SellerRemoveProduct = async (
   //to be changed, extract seller_id from jwt
   let sellerid = Number(req.headers.id);
   let productid: number = Number(req.params.id);
-  let result = await Seller.removeProduct(productid, sellerid);
+  let result = await removeProduct_service(sellerid, productid);
   res.json(result);
 };
 

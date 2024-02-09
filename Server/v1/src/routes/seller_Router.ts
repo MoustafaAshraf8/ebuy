@@ -15,6 +15,5 @@ sellerRouter
   .route("/addProduct")
   .post(verifyReCookie_middleware, tryCatch(SellerAddProduct));
 sellerRouter.route("/removeProduct/:id").delete(tryCatch(SellerRemoveProduct));
-//sellerRouter.route("/addProduct").post(sellerSignIn);
 
 export { sellerRouter };

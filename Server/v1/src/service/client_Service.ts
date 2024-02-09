@@ -70,7 +70,6 @@ const updateCartItem_service = async (
 export {
   clientSignUp_service,
   clientLogIn_service,
-  //   authenticateClient,
   addToCart_service,
   getCartItems_service,
   deleteFromClientCart_service,

@@ -20,22 +20,7 @@ clientRouter
 
 clientRouter
   .route("/cart/:id")
-  .delete(verifyReCookie_middleware, deleteCartItem)
-  .patch(verifyReCookie_middleware, updateCartItem);
-
-clientRouter
-  .route("/:id")
-  .get((req, res, next): void => {
-    let id: number = Number(req.params.id);
-    res.statusCode = 600;
-    res.json({ id: id });
-  })
-  .post((req, res, next): void => {
-    let id: number = Number(req.body.id);
-    //let id: number = Number(req.params.id);
-    console.log(req.body);
-    res.statusCode = 600;
-    res.json({ id: id });
-  });
+  .delete(verifyReCookie_middleware, tryCatch(deleteCartItem))
+  .patch(verifyReCookie_middleware, tryCatch(updateCartItem));
 
 export { clientRouter };
