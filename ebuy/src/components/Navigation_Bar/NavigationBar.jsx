@@ -3,7 +3,7 @@ import { useState } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import HomeSharpIcon from "@mui/icons-material/HomeSharp";
 import LoginIcon from "@mui/icons-material/Login";
-
+import { Link } from "react-router-dom";
 import BrandLogo from "./components/BrandLogo";
 import Categories from "./components/Categories";
 import SearchBar from "./components/SearchBar";
@@ -18,13 +18,13 @@ const iconFontStyle = {
 };
 
 const NavigationBar = () => {
-  const user = useSelector((state) => {
-    console.log("!!!!!!!!!!!!!!!!!!!!");
-    console.log(state.user.value);
-    //setX("x");
-    console.log("!!!!!!!!!!!!!!!!!!!!");
-    return state.user.value;
-  });
+  //   const user = useSelector((state) => {
+  //     console.log("!!!!!!!!!!!!!!!!!!!!");
+  //     console.log(state.user.value);
+  //     //setX("x");
+  //     console.log("!!!!!!!!!!!!!!!!!!!!");
+  //     return state.user.value;
+  //   });
 
   return (
     <nav
@@ -69,9 +69,9 @@ const NavigationBar = () => {
             style={{ border: "solid 0px black" }}
           >
             <li className="nav-item">
-              <a className="nav-link" href="/">
+              <Link className="nav-link" to="/">
                 <HomeSharpIcon style={iconFontStyle.largeIcon} />
-              </a>
+              </Link>
             </li>
 
             <Categories />

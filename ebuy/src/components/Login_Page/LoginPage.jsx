@@ -38,9 +38,6 @@ const LoginPage = () => {
 
   const dispatch = useDispatch();
   if (data) {
-    console.log("&*&*&*&*&*&*&**");
-    console.log(data[0]);
-    console.log("&*&*&*&*&*&*&**");
     dispatch(
       signIn({
         registered: true,
@@ -52,7 +49,7 @@ const LoginPage = () => {
         accessToken: data[0].accessToken,
       })
     );
-    window.location.replace("http://localhost:3000/");
+    //window.location.replace("http://localhost:3000/");
   }
 
   return (
