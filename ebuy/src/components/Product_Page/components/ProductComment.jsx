@@ -55,7 +55,7 @@ const ProductComment = (props) => {
           <h5>{props.productreview_comment_heading}</h5>
         </div>
         <div>
-          <h5>{props.productreview_rating}</h5>
+          {/* <h5>{props.productreview_rating}</h5> */}
         </div>
         {/* <div>{props.productreview_rating}</div> */}
         {/* <div>
@@ -72,7 +72,7 @@ const ProductComment = (props) => {
       <div>
         <h6>{props.productreview_comment_body}</h6>
       </div>
-      <div>{props.client_name}</div>
+      {/* <div>{props.client_name}</div> */}
     </div>
   );
 };

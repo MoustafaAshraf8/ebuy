@@ -23,9 +23,7 @@ const HomePage = () => {
       className="container-fluid d-flex flex-column align-items-start pt-4 m-0"
       style={homePageStyle}
     >
-      <div>{user.person_id}</div>
-      <div>{user.person_name}</div>
-      <div>{user.person_email}</div>
+
       <SaleImage />
       <Card />
     </div>
