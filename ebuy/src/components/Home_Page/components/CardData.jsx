@@ -77,16 +77,6 @@ const CardData = ({ product }) => {
             style={{ color: "orange" }}
           ></span>
         </div>
-        {/* <button
-          className="btn btn-primary"
-          type="button"
-          style={{ backgroundColor: "rgb(0,128,0)", border: "none" }}
-        >
-          <span className="d-inline">
-            <AddShoppingCartIcon />
-          </span>
-        </button> */}
-
         <Button_template
           text={
             data ? (
@@ -101,7 +91,6 @@ const CardData = ({ product }) => {
           onClick={addToCart}
         />
       </div>
-      {/* <div>{Product.description}</div> */}
     </div>
   );
 };

@@ -81,7 +81,6 @@ export class Client {
         quantity
       );
       let result = await pool.query(query);
-      console.log("a7a");
       return JSON.stringify(result.rows);
     } catch (err) {
       console.log(err);

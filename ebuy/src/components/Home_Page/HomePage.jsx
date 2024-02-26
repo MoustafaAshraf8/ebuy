@@ -11,22 +11,21 @@ const HomePage = () => {
     minHeight: "calc(100vh - 10vh)", //60px : height of navbar
   };
 
-  //   let user = useSelector((state) => {
-  //     //console.log("-----------------");
-  //     //console.log(state.user.value);
-  //     //setX("x");
-  //     //console.log("-----------------");
-  //     return state.user.value;
-  //   });
+  let user = useSelector((state) => {
+    console.log("-----------------");
+    console.log(state.user.value);
+    console.log("-----------------");
+    return state.user.value;
+  });
 
   return (
     <div
       className="container-fluid d-flex flex-column align-items-start pt-4 m-0"
       style={homePageStyle}
     >
-      {/* <div>{user.person_id}</div>
+      <div>{user.person_id}</div>
       <div>{user.person_name}</div>
-      <div>{user.person_email}</div> */}
+      <div>{user.person_email}</div>
       <SaleImage />
       <Card />
     </div>

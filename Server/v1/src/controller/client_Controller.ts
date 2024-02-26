@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { Client_Interface } from "../Interface/Client_Interface.js";
 import { Client_signIn_Interface } from "../Interface/Client_signIn_Interface.js";
-import { Error_message_Interface } from "../Interface/Error_message_Interface.js";
 import { clientSignUp_service } from "../service/client_Service.js";
 import { clientLogIn_service } from "../service/client_Service.js";
 import { getCartItems_service } from "../service/client_Service.js";
@@ -43,13 +42,13 @@ const clientSignIn = async (
     Password: req.body.password,
   };
 
-  //step-1 authenticate
   let result = await clientLogIn_service(oldClientData);
 
   res.cookie("accessCookie", Object(result[0]).accessToken, {
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000,
   });
+  res.statusCode = 200;
   res.json(result);
 };
 
@@ -58,7 +57,7 @@ const addToCart = async (req: Request, res: Response, next: NextFunction) => {
   let productid = Number(req.body.productid);
   let quantity = Number(req.body.quantity) ? Number(req.body.quantity) : 1;
   console.log(clientid, productid, quantity);
-  let result = await addToCart_service(clientid, productid, quantity);
+  await addToCart_service(clientid, productid, quantity);
   res.statusCode = 200;
   res.end();
 };
@@ -81,10 +80,7 @@ const deleteCartItem = async (
   let userid = req.headers["user"];
   let productid = req.url.split("/").at(-1);
   console.log(userid, req.url, productid);
-  let result = await deleteFromClientCart_service(
-    Number(userid),
-    Number(productid)
-  );
+  await deleteFromClientCart_service(Number(userid), Number(productid));
   res.statusCode = 200;
   res.end();
 };
@@ -100,7 +96,7 @@ const updateCartItem = async (
   console.log(req.body);
   console.log(req.body.quantity);
   console.log(clientid, productid, quantity);
-  let result = await updateCartItem_service(
+  await updateCartItem_service(
     Number(clientid),
     Number(productid),
     Number(quantity)
